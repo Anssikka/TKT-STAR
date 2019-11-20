@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Halant|Lora|Rasa&display=swap');
+
+/*
+Title:
+font-family: 'Lora', serif;
+
+Subtitle:
+font-family: 'Rasa', serif;
+
+Text:
+font-family: 'Halant', serif;
+*/
+
+body {
+  margin: 0 auto;
+  font-family: 'Halant', serif;
+}
