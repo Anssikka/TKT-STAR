@@ -1,15 +1,18 @@
-import React from "react";
-import AddBookForm from "./components/addRecommendation"
-import createBook from "./services/communicator"
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import BookPage from './pages/BookPage'
+import './App.css'
 
-const App = ( props ) =>  {
-
+function App() {
   return (
-    <div>
-      <h1>Books</h1>
-      <AddBookForm createBook={ createBook }/>
+    <div className="App">
+      <Router>
+        <Route exact path="/" render={() => <HomePage />} />
+        <Route path="/recommendations/books" render={() => <BookPage />} />
+      </Router>
     </div>
-  );
+  )
 }
 
 export default App
