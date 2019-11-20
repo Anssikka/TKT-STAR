@@ -6,4 +6,4 @@ const createBook = async ( {author, title} ) => {
     return response.data
 }
 
-export default createBook
+export default {createBook}

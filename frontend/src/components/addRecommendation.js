@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import createBook from '../services/communicator'
+import createBook from '../services/books'
 
 const AddBookForm = () => {
     const [author, setAuthor] = useState('')
@@ -32,7 +32,6 @@ const AddBookForm = () => {
           onChange={({ target }) => setTitle(target.value)}
         />
 
-        <span />
         <input type="submit" value="Submit" />
       </form>
     </div>
