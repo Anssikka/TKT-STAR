@@ -7,20 +7,7 @@ import PageSubtitle from '../components/PageSubtitle'
 import '../styles/BookPage.css'
 
 function BookPage() {
-  const REMOVE = [
-    {
-      id: 1,
-      title: 'Test 101',
-      author: 'Tester',
-      isbn: '1234-4321',
-      tags: ['Tag #1', 'Tag #2']
-    },
-    {
-      id: 2,
-      title: 'Only Title'
-    }
-  ]
-  const [books, setBooks] = useState(REMOVE)
+  const [books, setBooks] = useState([])
   useEffect(() => {
     getBooks()
   }, [])
