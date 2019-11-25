@@ -8,3 +8,7 @@ __pycache__
 # Databases
 
 database.db
+
+# Editors
+
+.vscode
