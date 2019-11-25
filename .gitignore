@@ -9,6 +9,10 @@ __pycache__
 
 database.db
 
+# Build files
+
+backend/application/static/
+
 # Editors
 
 .vscode
