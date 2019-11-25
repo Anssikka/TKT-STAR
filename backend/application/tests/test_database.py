@@ -29,7 +29,7 @@ def test_initialized_db(client):
 
 
 def test_get_after_post(client):
-    rv = client.post('/api/books', json={'title': 'TestTitle',
+    rv = client.post('/api/recommendations', json={'title': 'TestTitle',
                                 'author': 'TestAuthor',
                                 'isbn': 'TestISBN',
                                 'tags': 'TestTags'})

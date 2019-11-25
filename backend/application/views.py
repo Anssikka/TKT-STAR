@@ -8,7 +8,7 @@ from .Models.models import Book
 db = SQLAlchemy(app)
 
 @app.route('/')
-@app.route('/api/books', methods=['GET', 'POST'])
+@app.route('/api/recommendations', methods=['GET', 'POST'])
 def booksFunc():
     if request.method == 'GET':
         return get_books()
