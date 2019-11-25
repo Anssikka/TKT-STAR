@@ -8,7 +8,6 @@ const createBook = async book => {
 
 const getBooks = async () => {
   const response = await axios.get(baseUrl)
-  console.log('RESPONSE IS', response)
   return response.data.books
 }
 
