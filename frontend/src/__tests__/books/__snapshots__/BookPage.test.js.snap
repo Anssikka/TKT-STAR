@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BookPage /> has correct elements 1`] = `
+<DocumentFragment>
+  <main
+    class="book-page"
+  >
+    <h1
+      class="page-title"
+    >
+      Book Recommendations
+    </h1>
+    <h3
+      class="page-subtitle"
+    >
+      Add a Book
+    </h3>
+    <div
+      class="book-form-wrapper"
+    >
+      <form
+        class="book-form"
+      >
+        <label>
+          Title:
+        </label>
+        <input
+          data-testid="add-book-title"
+          placeholder="Type your book title"
+          type="text"
+          value=""
+        />
+        <label>
+          Author:
+        </label>
+        <input
+          data-testid="add-book-author"
+          placeholder="Type your book author"
+          type="text"
+          value=""
+        />
+        <label>
+          ISBN:
+        </label>
+        <input
+          data-testid="add-book-isbn"
+          placeholder="Type your book isbn"
+          type="text"
+          value=""
+        />
+        <input
+          class="form-submit"
+          data-testid="add-book-submit"
+          type="submit"
+          value="Submit"
+        />
+      </form>
+    </div>
+    <div>
+      <h3
+        class="page-subtitle"
+      >
+        Saved Books
+      </h3>
+      <div
+        class="book"
+      >
+        <h5>
+          Test 101
+        </h5>
+        <h6
+          class="book-author"
+        >
+          Tester
+        </h6>
+        <small>
+          1234-4321
+        </small>
+        <h6
+          class="book-tag-title"
+        >
+          Tags:
+        </h6>
+        <ul>
+          <li>
+            Tag #1
+          </li>
+          <li>
+            Tag #2
+          </li>
+        </ul>
+      </div>
+      <div
+        class="book"
+      >
+        <h5>
+          Only Title
+        </h5>
+        <h6
+          class="book-tag-title"
+        >
+          Tags:
+        </h6>
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;

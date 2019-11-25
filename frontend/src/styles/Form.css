@@ -1,0 +1,27 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form > label {
+  font-family: 'Rasa', serif;
+  font-weight: bold;
+  color: #2c2c2c;
+}
+
+form > input {
+  margin-bottom: 1.5rem;
+  border: 2px solid #2c2c2c;
+  border-radius: 5px;
+  padding: 0.5rem 0.2rem;
+  outline: none;
+}
+
+.form-submit {
+  border: transparent;
+  cursor: pointer;
+  font-family: 'Rasa', serif;
+  font-size: 1.2rem;
+  color: white;
+  background: #2c2c2c;
+}
