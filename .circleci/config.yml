@@ -1,10 +1,7 @@
-# Python CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-python/ for more details
-#
 version: 2
+
 jobs:
-  build:
+  build_backend:
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
@@ -54,3 +51,46 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+  
+  build_frontend:
+    working_directory: ~/frontend
+    docker:
+      - image: circleci/node:10.16.3
+      - image: mongo:4.2.0 # and this image as the secondary service container
+    steps: # a collection of executable commands
+      - checkout:
+        path: ~/repo
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: test
+          command: npm test
+      - run:
+          name: code-coverage
+          command: 'npm test-copverage'
+      #- store_artifacts:
+      #    path: test-results.xml
+      #    prefix: tests
+      #- store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
+      #    path: coverage
+      #    prefix: coverage
+      #- store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+      #    path: test-results.xml
+
+
+workflows:
+  version: 2
+    build_accept_deploy:
+      jobs:
+        - build_backend
+        - build_frontend
