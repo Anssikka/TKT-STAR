@@ -2,6 +2,7 @@
 from application import app
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import cross_origin
 
 from .Models.models import Book
 
@@ -9,6 +10,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 @app.route('/api/recommendations/books', methods=['GET', 'POST'])
+@cross_origin()
 def booksFunc():
     if request.method == 'GET':
         return get_books()
@@ -19,9 +21,12 @@ def booksFunc():
         isbn = data.get('isbn')
         tags = data.get('tags')
 
-        db.session.add(Book(title=title, author=author, isbn=isbn, tags=tags))
+        book = Book(title=title, author=author, isbn=isbn, tags=tags)
+
+        db.session.add(book)
         db.session.commit()
-        return get_books()
+        
+        return jsonify(book=book.serialize)
 
 
 def get_books():
