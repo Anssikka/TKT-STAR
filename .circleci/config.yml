@@ -53,10 +53,9 @@ jobs:
           destination: test-reports
   
   build_frontend:
-    working_directory: ~/frontend
+    working_directory: ~/repo/frontend
     docker:
       - image: circleci/node:10.16.3
-      - image: mongo:4.2.0 # and this image as the secondary service container
     steps: # a collection of executable commands
       - checkout:
           path: ~/repo
