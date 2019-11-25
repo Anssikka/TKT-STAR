@@ -59,7 +59,7 @@ jobs:
       - image: mongo:4.2.0 # and this image as the secondary service container
     steps: # a collection of executable commands
       - checkout:
-        path: ~/repo
+          path: ~/repo
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@latest'
