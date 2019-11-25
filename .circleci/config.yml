@@ -90,7 +90,14 @@ jobs:
 
 workflows:
   version: 2
+<<<<<<< HEAD
   build_accept_deploy:
     jobs:
       - build_backend
       - build_frontend
+=======
+    build_accept_deploy:
+      jobs:
+        - build_backend
+        - build_frontend
+>>>>>>> 182faabbbf13e8e5477decdd6fe68f7b6a881c1c
