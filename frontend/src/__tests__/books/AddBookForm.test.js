@@ -1,45 +1,42 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render, cleanup, fireEvent, act } from '@testing-library/react'
-import axios from 'axios'
+import { render, cleanup, fireEvent, waitForElement } from '@testing-library/react'
 import AddBookForm from '../../components/books/AddBookForm'
-
-jest.mock('axios')
 
 afterEach(cleanup)
 
-it('sends request when book with title and author is given', async () => {
-  await act(async () => {
-    const { authorInput, titleInput, submit } = await setup()
-    fireEvent.change(authorInput, { target: { value: 'Author' } })
-    fireEvent.change(titleInput, { target: { value: 'Book Title' } })
+describe('<AddBookForm />', () => {
+  it('sends correct data when submitted', async () => {
+    const book = { title: 'Book Title', author: 'Author', isbn: '1234-4321' }
+    const handleSubmit = jest.fn().mockResolvedValue(book)
+    const { component, authorInput, titleInput, isbnInput, submit } = await setup(handleSubmit)
 
-    expect(authorInput.value).toBe('Author')
-    expect(titleInput.value).toBe('Book Title')
+    fireEvent.change(authorInput, { target: { value: book.author } })
+    fireEvent.change(titleInput, { target: { value: book.title } })
+    fireEvent.change(isbnInput, { target: { value: book.isbn } })
 
-    axios.post.mockResolvedValue(() =>
-      Promise.resolve({
-        data: { author: 'Author', title: 'Title' }
-      })
-    )
+    await waitForElement(() => component.getByDisplayValue(book.author))
+    await waitForElement(() => component.getByDisplayValue(book.title))
+    await waitForElement(() => component.getByDisplayValue(book.isbn))
 
     fireEvent.click(submit)
-    expect(axios.post).toHaveBeenCalledTimes(1)
-    expect(axios.post).toHaveBeenCalledWith('http://127.0.0.1:5000/api/books', {
-      author: 'Author',
-      title: 'Book Title'
-    })
+
+    expect(handleSubmit).toBeCalledTimes(1)
+    expect(handleSubmit).toBeCalledWith(book)
   })
 })
 
-const setup = async () => {
-  const component = render(<AddBookForm />)
+const setup = async handleSubmit => {
+  const component = render(<AddBookForm handleSubmit={handleSubmit} />)
   const authorInput = await component.findByTestId('add-book-author')
   const titleInput = await component.findByTestId('add-book-title')
+  const isbnInput = await component.findByTestId('add-book-isbn')
   const submit = await component.findByTestId('add-book-submit')
   return {
+    component,
     authorInput,
     titleInput,
+    isbnInput,
     submit
   }
 }

@@ -1,0 +1,44 @@
+.book {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: #2c2c2c;
+  color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.book h5,
+h6 {
+  margin: 0 0 0.5rem 0;
+}
+
+.book h6.book-tag-title {
+  margin: 0.2rem 0;
+}
+
+.book h6.book-author::before {
+  content: 'By: ';
+}
+
+.book ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.book li {
+  display: inline;
+  font-size: 1.1rem;
+}
+
+.book li::after {
+  content: ', ';
+}
+
+.book li:last-child::after {
+  content: '';
+}
