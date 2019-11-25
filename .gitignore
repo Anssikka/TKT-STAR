@@ -3,3 +3,8 @@ venv/
 
 # Python cache
 __pycache__
+
+
+# Databases
+
+database.db
