@@ -11,7 +11,7 @@ database.db
 
 # Build files
 
-backend/application/static/
+built_frontend
 
 # Editors
 
