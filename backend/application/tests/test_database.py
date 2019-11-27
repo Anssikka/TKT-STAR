@@ -23,7 +23,7 @@ def client():
 
 
 def test_initialized_db(client):
-    rv = client.get('/')
+    rv = client.get('/api/recommendations/books')
 
     assert b'Clean Code: A Handbook of Agile Software Craftsmanship' in rv.data
 
@@ -34,6 +34,6 @@ def test_get_after_post(client):
                                 'isbn': 'TestISBN',
                                 'tags': 'TestTags'})
 
-    rv = client.get('/')
+    rv = client.get('/api/recommendations/books')
 
     assert b'TestTitle' in rv.data
