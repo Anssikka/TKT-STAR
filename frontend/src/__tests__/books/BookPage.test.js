@@ -11,19 +11,21 @@ afterEach(cleanup)
 describe('<BookPage />', () => {
   it('has correct elements', async () => {
     axios.get.mockResolvedValue({
-      data: [
-        {
-          id: 1,
-          title: 'Test 101',
-          author: 'Tester',
-          isbn: '1234-4321',
-          tags: ['Tag #1', 'Tag #2']
-        },
-        {
-          id: 2,
-          title: 'Only Title'
-        }
-      ]
+      data: {
+        books: [
+          {
+            id: 1,
+            title: 'Test 101',
+            author: 'Tester',
+            isbn: '1234-4321',
+            tags: ['Tag #1', 'Tag #2']
+          },
+          {
+            id: 2,
+            title: 'Only Title'
+          }
+        ]
+      }
     })
     const component = render(<BookPage />)
     await waitForElement(() => component.findByText('Test 101'))
