@@ -1,7 +1,8 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render, cleanup } from '@testing-library/react'
+import { render, cleanup, fireEvent, waitForElement } from '@testing-library/react'
 import Book from '../../components/books/Book'
+// import '@types/jest'
 
 afterEach(cleanup)
 

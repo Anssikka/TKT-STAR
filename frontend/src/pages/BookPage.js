@@ -30,12 +30,21 @@ function BookPage() {
     }
   }
 
+  const handleToggle = async id => {
+    const book = books.find(b => b.id === id)
+
+    if (book) {
+      const updatedBook = await bookService.updateBook({ ...book, read: !book.read })
+      setBooks(books.map(b => (b.id === updatedBook.id ? updatedBook : b)))
+    }
+  }
+
   return (
     <main className="book-page">
       <PageTitle title="Book Recommendations" />
       <PageSubtitle title="Add a Book" />
       <AddBookForm handleSubmit={addBook} />
-      <BookList title="Saved Books" books={books} />
+      <BookList title="Saved Books" books={books} handleToggle={handleToggle} />
     </main>
   )
 }

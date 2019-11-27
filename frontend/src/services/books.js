@@ -11,4 +11,9 @@ const getBooks = async () => {
   return response.data.books
 }
 
-export default { createBook, getBooks }
+const updateBook = async book => {
+  const response = await axios.put(baseUrl, book)
+  return response.data.book
+}
+
+export default { createBook, getBooks, updateBook }
