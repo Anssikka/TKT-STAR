@@ -14,17 +14,24 @@ class DBHandler():
             videos = Video.query.all()
             return jsonify(videos=[video.serialize for video in videos])
 
-    def post_video(db, json):
+    def post_video(self, db, json):
         url = json.get('url')
         title = json.get('title')
 
         rec = Recommendation()
-        video = Video(url=url, title=title)
+        video = Video(url=url, title=title, recommendation=rec)
 
         db.session.add(rec)
         db.session.add(video)
-
         db.session.commit()
+
+        db.session.refresh(rec)
+
+        if json.get('tags'):
+            for tag in json.get('tags'):
+                self.add_tag(rec, db, tag)
+
+        return jsonify(video = video.serialize)
 
     def post_book(self, db, json):
         title = json.get('title')
@@ -36,12 +43,10 @@ class DBHandler():
         book = Book(title=title, author=author, isbn=isbn, isRead=isRead, recommendation=rec)
 
         db.session.add(rec)
-        print(rec.id)
         db.session.add(book)
         db.session.commit()
 
         db.session.refresh(rec)
-        print(rec.id)
 
         if json.get('tags'):
             for tag in json.get('tags'):

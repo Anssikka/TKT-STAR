@@ -15,11 +15,8 @@ dbh = DBHandler
 @app.route('/')
 @app.route('/api/recommendations/books', methods=['GET'])
 @cross_origin()
-def booksFunc():
-    #if request.method == 'GET':
+def getBooks():
     return dbh.get_books(app)
-    #elif request.method == 'POST':
-
 
 @app.route('/')
 @app.route('/api/recommendations/books', methods=['POST'])
@@ -28,9 +25,15 @@ def postBook():
     json = request.json
     return dbh.post_book(dbh, db, json)
 
-# def get_books():
-#     with app.app_context():
-#         books = Book.query.all()
-#         for book in books:
-#             print((book.serialize))
-#         return jsonify(books=[book.serialize for book in books])
+@app.route('/')
+@app.route('/api/recommendations/videos', methods=['GET'])
+@cross_origin()
+def getVideos():
+    return dbh.get_videos(app)
+
+@app.route('/')
+@app.route('/api/recommendations/videos', methods=['POST'])
+@cross_origin()
+def postVideo():
+    json = request.json
+    return dbh.post_video(dbh, db, json)

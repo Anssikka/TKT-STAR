@@ -48,10 +48,17 @@ class Video(db.Model):
 
    @property
    def serialize(self):
+      tags = (Tag.query.join(TagRecommendation).join(Recommendation)
+              .filter((Tag.id == TagRecommendation.tag_id) & (TagRecommendation.recommendation_id == Recommendation.id)
+               & (Recommendation.id == self.recommendation_id))
+              .all())
+
+      tags = [tag.serialize for tag in tags]
       return {
          'id': self.id,
          'url': self.url,
          'title': self.title,
+         'tags': tags
       }
 
 class Tag(db.Model):

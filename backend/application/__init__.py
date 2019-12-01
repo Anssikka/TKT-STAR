@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -23,20 +24,20 @@ def init_db():
     db.create_all()
     db.session.commit()
 
+
+
 if not os.path.isfile('./application/database.db'):
-   db.create_all()
-   recommendation = Recommendation()
-   book = Book(title="Clean Code: A Handbook of Agile Software Craftsmanship", author='Robert Martin', isbn='978-0132350884', recommendation=recommendation, isRead=0)
-   db.session.add(recommendation)
-   db.session.add(book)
-   recommendation = Recommendation()
-   video = Video(url='www.youtube.com', title='Netin parhaimmat kissavideot', recommendation=recommendation)
-   db.session.add(recommendation)
-   db.session.add(video)
+    db.create_all()
+    recommendation = Recommendation()
+    book = Book(title="Clean Code: A Handbook of Agile Software Craftsmanship", author='Robert Martin', isbn='978-0132350884', recommendation=recommendation, isRead=0)
+    db.session.add(recommendation)
+    db.session.add(book)
+    db.session.commit()
+    recommendation = Recommendation()
+    video = Video(url='https://www.youtube.com/watch?v=iRXJXaLV0n4', title='Netin parhaimmat kissavideot', recommendation=recommendation)
+    db.session.add(recommendation)
+    db.session.add(video)
+    db.session.commit()
 
-   #db.session.add(Book(title="Clean Code: A Handbook of Agile Software Craftsmanship", author='Robert Martin', isbn='978-0132350884', recommendation_id=recommendation))
-   # db.session.add(Book(title="Clean Agile", author='Robert Martin', isbn='9784322350884'))
-   db.session.commit()
 
-#, tags='Ohjelmointi, design patterns'
-#tags='Ohjelmointi, design patterns, Ohjelmistuotanto, Agile'dsadsaddsadasdsaddsadasdsasdsaddsadasddsadasd
+
