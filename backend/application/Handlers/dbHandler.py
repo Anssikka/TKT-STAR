@@ -6,13 +6,13 @@ class DBHandler():
     def get_books(app):
         with app.app_context():
             books = Book.query.all()
-            print(books)
-            return jsonify(books=[book.serialize for book in books])
+
+            return jsonify([book.serialize for book in books])
 
     def get_videos(app):
         with app.app_context():
-            videos = Video.query.all()
-            return jsonify(videos=[video.serialize for video in videos])
+            videos = Video.query.all()          
+            return jsonify([video.serialize for video in videos])
 
     def post_video(self, db, json):
         url = json.get('url')
@@ -31,7 +31,7 @@ class DBHandler():
             for tag in json.get('tags'):
                 self.add_tag(rec, db, tag)
 
-        return jsonify(video = video.serialize)
+        return jsonify(video.serialize)
 
     def post_book(self, db, json):
         title = json.get('title')
@@ -53,21 +53,24 @@ class DBHandler():
                 self.add_tag(rec, db, tag)
 
 
-        return jsonify(book=book.serialize)
+        return jsonify(book.serialize)
 
     def update_book(self, db, book_id):
         book = db.session.query(Book).filter(Book.id == book_id).one()
-        print(book.serialize)
+
         if book.isRead == False:
             book.isRead = True
         elif book.isRead == True:
             book.isRead = False
 
-        print(book.serialize)
         db.session.commit()
         book = Book.query.get(book_id)
-        print(book.serialize)
-        return jsonify(book=book.serialize)
+
+        return jsonify(book.serialize)
+
+    def get_book(self, db, book_id):
+        book = db.session.query(Book).filter(Book.id == book_id).one()
+        return jsonify(book.serialize)
 
 
     def add_tag(rec, db, tag):
