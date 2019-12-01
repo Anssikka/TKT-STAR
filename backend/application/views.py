@@ -1,4 +1,3 @@
-
 from application import app
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
@@ -24,6 +23,13 @@ def getBooks():
 def postBook():
     json = request.json
     return dbh.post_book(dbh, db, json)
+
+@app.route('/')
+@app.route('/api/recommendations/books/<book_id>', methods=['POST'])
+def markAsRead(book_id):
+    return dbh.update_book(dbh, db, book_id)
+
+
 
 @app.route('/')
 @app.route('/api/recommendations/videos', methods=['GET'])

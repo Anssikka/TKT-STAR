@@ -34,7 +34,7 @@ class Book(db.Model):
          'author':self.author,
          'isbn':self.isbn,
          'id':self.id,
-         'isRead': (False if self.isRead == 0 else True),
+         'isRead': self.isRead,
          'tags': tags
       }
 

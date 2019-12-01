@@ -55,6 +55,21 @@ class DBHandler():
 
         return jsonify(book=book.serialize)
 
+    def update_book(self, db, book_id):
+        book = db.session.query(Book).filter(Book.id == book_id).one()
+        print(book.serialize)
+        if book.isRead == False:
+            book.isRead = True
+        elif book.isRead == True:
+            book.isRead = False
+
+        print(book.serialize)
+        db.session.commit()
+        book = Book.query.get(book_id)
+        print(book.serialize)
+        return jsonify(book=book.serialize)
+
+
     def add_tag(rec, db, tag):
         tagObject = Tag(name=tag)
         db.session.add(tagObject)
