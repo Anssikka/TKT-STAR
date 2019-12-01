@@ -11,7 +11,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app)
 db = SQLAlchemy(app)
 
-from .Models.models import Book
+from .Models.models import Book, Recommendation, Video
 
 from application import views
 
@@ -25,7 +25,18 @@ def init_db():
 
 if not os.path.isfile('./application/database.db'):
    db.create_all()
-   db.session.add(Book(title="Clean Code: A Handbook of Agile Software Craftsmanship", author='Robert Martin', isbn='978-0132350884', tags='Ohjelmointi, design patterns'))
-   db.session.add(Book(title="Clean Agile", author='Robert Martin', isbn='9784322350884', tags='Ohjelmointi, design patterns, Ohjelmistuotanto, Agile'))
+   recommendation = Recommendation()
+   book = Book(title="Clean Code: A Handbook of Agile Software Craftsmanship", author='Robert Martin', isbn='978-0132350884', recommendation=recommendation, isRead=0)
+   db.session.add(recommendation)
+   db.session.add(book)
+   recommendation = Recommendation()
+   video = Video(url='www.youtube.com', title='Netin parhaimmat kissavideot', recommendation=recommendation)
+   db.session.add(recommendation)
+   db.session.add(video)
+
+   #db.session.add(Book(title="Clean Code: A Handbook of Agile Software Craftsmanship", author='Robert Martin', isbn='978-0132350884', recommendation_id=recommendation))
+   # db.session.add(Book(title="Clean Agile", author='Robert Martin', isbn='9784322350884'))
    db.session.commit()
 
+#, tags='Ohjelmointi, design patterns'
+#tags='Ohjelmointi, design patterns, Ohjelmistuotanto, Agile'dsadsaddsadasdsaddsadasdsasdsaddsadasddsadasd
