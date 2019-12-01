@@ -17,6 +17,7 @@ dbh = DBHandler
 def getBooks():
     return dbh.get_books(app)
 
+
 @app.route('/')
 @app.route('/api/recommendations/books', methods=['POST'])
 @cross_origin()
@@ -24,10 +25,12 @@ def postBook():
     json = request.json
     return dbh.post_book(dbh, db, json)
 
+
 @app.route('/')
 @app.route('/api/recommendations/books/<book_id>', methods=['POST'])
 def markAsRead(book_id):
     return dbh.update_book(dbh, db, book_id)
+
 
 @app.route('/')
 @app.route('/api/recommendations/books/<book_id>', methods=['GET'])
@@ -35,11 +38,13 @@ def markAsRead(book_id):
 def get_Book(book_id):
     return dbh.get_book(dbh, db, book_id)
 
+
 @app.route('/')
 @app.route('/api/recommendations/videos', methods=['GET'])
 @cross_origin()
 def getVideos():
     return dbh.get_videos(app)
+
 
 @app.route('/')
 @app.route('/api/recommendations/videos', methods=['POST'])
@@ -47,4 +52,3 @@ def getVideos():
 def postVideo():
     json = request.json
     return dbh.post_video(dbh, db, json)
-
