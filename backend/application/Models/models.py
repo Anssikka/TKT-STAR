@@ -26,7 +26,6 @@ class Book(db.Model):
                & (Recommendation.id == self.recommendation_id))
               .all())
 
-
       tags = [tag.serialize for tag in tags]
 
       return {

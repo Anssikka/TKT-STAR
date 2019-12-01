@@ -13,16 +13,20 @@ dbh = DBHandler
 
 
 @app.route('/')
-@app.route('/api/recommendations/books', methods=['GET', 'POST'])
+@app.route('/api/recommendations/books', methods=['GET'])
 @cross_origin()
 def booksFunc():
-    if request.method == 'GET':
-        return dbh.get_books(app)
-    elif request.method == 'POST':
-        json = request.json
-        return dbh.post_book(dbh, db, json)
+    #if request.method == 'GET':
+    return dbh.get_books(app)
+    #elif request.method == 'POST':
 
 
+@app.route('/')
+@app.route('/api/recommendations/books', methods=['POST'])
+@cross_origin()
+def postBook():
+    json = request.json
+    return dbh.post_book(dbh, db, json)
 
 # def get_books():
 #     with app.app_context():
