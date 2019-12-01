@@ -30,7 +30,6 @@ def test_get_books_after_post(client):
 
     rv = client.get('/api/recommendations/books')
 
-
     assert b'TestTitle' in rv.data
     assert b'TestAuthor' in rv.data
     assert b'TestISBN' in rv.data
@@ -73,7 +72,7 @@ def test_change_book_isRead(client):
     rv = client.get('/api/recommendations/books/' + str(book_id))
 
     json_data = rv.get_json()
-    
+
     assert json_data.get('isRead') == True
 
     rv = client.post('/api/recommendations/books/' + str(book_id))
@@ -81,8 +80,27 @@ def test_change_book_isRead(client):
     rv = client.get('/api/recommendations/books/' + str(book_id))
 
     json_data = rv.get_json()
-    
-    assert json_data.get('isRead') == False    
+
+    assert json_data.get('isRead') == False
 
     db = returnDB()
     db.drop_all()
+
+
+def test_cannot_get_nonexistant_book(client):
+    rv = client.post('/api/recommendations/books', json={'title': 'TestTitle',
+                                                         'author': 'TestAuthor',
+                                                         'isbn': 'TestISBN',
+                                                         'tags': ['TestTags']})
+
+    rv = client.get('/api/recommendations/books/2')
+
+    assert b'404' in rv.data
+
+    db = returnDB()
+    db.drop_all()
+
+
+def test_2cannot_get_nonexistant_book(client):
+    rv = client.get('/api/recommendations/videos')
+    json_data = rv.get_json()

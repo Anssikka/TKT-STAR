@@ -11,7 +11,7 @@ class DBHandler():
 
     def get_videos(app):
         with app.app_context():
-            videos = Video.query.all()          
+            videos = Video.query.all()
             return jsonify([video.serialize for video in videos])
 
     def post_video(self, db, json):
@@ -40,7 +40,8 @@ class DBHandler():
         isRead = 0
 
         rec = Recommendation()
-        book = Book(title=title, author=author, isbn=isbn, isRead=isRead, recommendation=rec)
+        book = Book(title=title, author=author, isbn=isbn,
+                    isRead=isRead, recommendation=rec)
 
         db.session.add(rec)
         db.session.add(book)
@@ -52,11 +53,10 @@ class DBHandler():
             for tag in json.get('tags'):
                 self.add_tag(rec, db, tag)
 
-
         return jsonify(book.serialize)
 
     def update_book(self, db, book_id):
-        book = db.session.query(Book).filter(Book.id == book_id).one()
+        book = db.session.query(Book).filter(Book.id == book_id).first()
 
         if book.isRead == False:
             book.isRead = True
@@ -69,9 +69,11 @@ class DBHandler():
         return jsonify(book.serialize)
 
     def get_book(self, db, book_id):
-        book = db.session.query(Book).filter(Book.id == book_id).one()
-        return jsonify(book.serialize)
+        book = db.session.query(Book).filter(Book.id == book_id).first()
+        if book == None:
+            return jsonify({"Error": "Book 404"})
 
+        return jsonify(book.serialize)
 
     def add_tag(rec, db, tag):
         tagObject = Tag(name=tag)
@@ -80,8 +82,7 @@ class DBHandler():
 
         db.session.refresh(tagObject)
 
-        tagRec = TagRecommendation(tag_id=tagObject.id, recommendation_id=rec.id)
+        tagRec = TagRecommendation(
+            tag_id=tagObject.id, recommendation_id=rec.id)
         db.session.add(tagRec)
         db.session.commit()
-
-#dsaodkoasd
