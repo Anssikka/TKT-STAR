@@ -21,12 +21,12 @@ class Book(db.Model):
    @property
    def serialize(self):
       return {
+         'id': self.id,
          'title':self.title,
          'author':self.author,
          'isbn':self.isbn,
-         'tags':self.tags,
          'id':self.id,
-         'isRead': self.isRead,
+         'isRead': False if self.isRead == 0 else True,
       }
 
 
@@ -40,6 +40,33 @@ class Video(db.Model):
    @property
    def serialize(self):
       return {
+         'id': self.id,
          'url': self.url,
          'title': self.title,
+      }
+
+class Tag(db.Model):
+   __tablename__ = 'tag'
+   id = db.Column(db.Integer, primary_key=True)
+   name = db.Column(db.String(250), nullable=False)
+
+   @property
+   def serialize(self):
+      return {
+         'id': self.url,
+         'title': self.name
+      }
+
+class TagRecommendation(db.Model):
+   __tablename__ = 'tagrecommendation'
+   id = db.Column(db.Integer, primary_key=True)
+   user_id = db.Column(db.Integer, db.ForeignKey('tag.id'), nullable=False)
+   team_id = db.Column(db.Integer, db.ForeignKey('recommendation.id'), nullable=False)
+
+   @property
+   def serialize(self):
+      return {
+         'id': self.url,
+         'user_id': self.user_id,
+         'team_id': self.team_id
       }
