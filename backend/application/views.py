@@ -29,7 +29,11 @@ def postBook():
 def markAsRead(book_id):
     return dbh.update_book(dbh, db, book_id)
 
-
+@app.route('/')
+@app.route('/api/recommendations/books/<book_id>', methods=['GET'])
+@cross_origin()
+def get_Book(book_id):
+    return dbh.get_book(dbh, db, book_id)
 
 @app.route('/')
 @app.route('/api/recommendations/videos', methods=['GET'])
@@ -43,3 +47,4 @@ def getVideos():
 def postVideo():
     json = request.json
     return dbh.post_video(dbh, db, json)
+
