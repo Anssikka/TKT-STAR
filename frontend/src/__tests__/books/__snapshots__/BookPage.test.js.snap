@@ -76,6 +76,11 @@ exports[`<BookPage /> has correct elements 1`] = `
         <small>
           1234-4321
         </small>
+        <button
+          class="book-toggle toggle button null"
+        >
+          Mark as read
+        </button>
         <h6
           class="book-tag-title"
         >
@@ -96,11 +101,11 @@ exports[`<BookPage /> has correct elements 1`] = `
         <h5>
           Only Title
         </h5>
-        <h6
-          class="book-tag-title"
+        <button
+          class="book-toggle toggle button null"
         >
-          Tags:
-        </h6>
+          Mark as read
+        </button>
       </div>
     </div>
   </main>
