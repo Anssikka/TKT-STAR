@@ -1,5 +1,5 @@
 from application import app
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import cross_origin
 from .Handlers.dbHandler import DBHandler

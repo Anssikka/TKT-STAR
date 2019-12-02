@@ -3,8 +3,8 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+app = Flask(__name__, static_folder="built_frontend")
 
-app = Flask(__name__)
 
 app.config['CORS_HEADERS'] = 'Content-Type'
 

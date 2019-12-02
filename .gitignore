@@ -10,6 +10,10 @@ __pycache__
 database.db
 *.db
 
+# Build files
+
+built_frontend
+
 # Editors
 
 .vscode
