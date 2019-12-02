@@ -34,7 +34,7 @@ function BookPage() {
     const book = books.find(b => b.id === id)
 
     if (book) {
-      const updatedBook = await bookService.updateBook({ ...book, read: !book.read })
+      const updatedBook = await bookService.markAsRead(book.id)
       setBooks(books.map(b => (b.id === updatedBook.id ? updatedBook : b)))
     }
   }
