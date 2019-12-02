@@ -6,8 +6,13 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+if os.environ.get("HEROKU"):
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+    app.config["SQLALCHEMY_ECHO"] = True
 
 cors = CORS(app)
 db = SQLAlchemy(app)
