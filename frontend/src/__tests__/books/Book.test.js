@@ -19,7 +19,10 @@ describe('<Book />', () => {
       title: 'Book Title',
       author: 'Book Author',
       isbn: '1234-4321',
-      tags: ['Tag #1', 'Tag #2']
+      tags: [
+        { id: 1, title: 'Tag #1' },
+        { id: 2, title: 'Tag #2' }
+      ]
     }
     const component = render(<Book {...props} />)
     const authorElement = await component.findByText(props.author)
@@ -28,8 +31,8 @@ describe('<Book />', () => {
 
     expect(authorElement).toBeDefined()
     expect(isbnElement).toBeDefined()
-    expect(tags).toHaveTextContent(props.tags[0])
-    expect(tags).toHaveTextContent(props.tags[1])
+    expect(tags).toHaveTextContent(props.tags[0].title)
+    expect(tags).toHaveTextContent(props.tags[1].title)
   })
 
   it('can be marked as read', async () => {
