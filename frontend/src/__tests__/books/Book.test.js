@@ -31,4 +31,18 @@ describe('<Book />', () => {
     expect(tags).toHaveTextContent(props.tags[0])
     expect(tags).toHaveTextContent(props.tags[1])
   })
+
+  it('can be marked as read', async () => {
+    const props = {
+      title: 'Book Title',
+      handleToggle: jest.fn()
+    }
+
+    const component = render(<Book {...props} />)
+    const x = component.container.querySelector('.book-toggle')
+
+    fireEvent.click(x)
+
+    expect(props.handleToggle).toBeCalledTimes(1)
+  })
 })
