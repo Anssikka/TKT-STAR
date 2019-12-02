@@ -24,6 +24,18 @@ h6 {
   content: 'By: ';
 }
 
+/* Toggle */
+
+.book-toggle-title {
+  margin-top: 1.5rem;
+}
+
+.book-toggle {
+  margin: 1.5rem 0;
+}
+
+/* Tags */
+
 .book ul {
   list-style: none;
   padding: 0;

@@ -1,7 +1,8 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render, cleanup } from '@testing-library/react'
+import { render, cleanup, fireEvent, waitForElement } from '@testing-library/react'
 import Book from '../../components/books/Book'
+// import '@types/jest'
 
 afterEach(cleanup)
 
@@ -18,7 +19,10 @@ describe('<Book />', () => {
       title: 'Book Title',
       author: 'Book Author',
       isbn: '1234-4321',
-      tags: ['Tag #1', 'Tag #2']
+      tags: [
+        { id: 1, title: 'Tag #1' },
+        { id: 2, title: 'Tag #2' }
+      ]
     }
     const component = render(<Book {...props} />)
     const authorElement = await component.findByText(props.author)
@@ -27,7 +31,21 @@ describe('<Book />', () => {
 
     expect(authorElement).toBeDefined()
     expect(isbnElement).toBeDefined()
-    expect(tags).toHaveTextContent(props.tags[0])
-    expect(tags).toHaveTextContent(props.tags[1])
+    expect(tags).toHaveTextContent(props.tags[0].title)
+    expect(tags).toHaveTextContent(props.tags[1].title)
+  })
+
+  it('can be marked as read', async () => {
+    const props = {
+      title: 'Book Title',
+      handleToggle: jest.fn()
+    }
+
+    const component = render(<Book {...props} />)
+    const x = component.container.querySelector('.book-toggle')
+
+    fireEvent.click(x)
+
+    expect(props.handleToggle).toBeCalledTimes(1)
   })
 })
