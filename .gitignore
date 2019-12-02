@@ -8,6 +8,7 @@ __pycache__
 # Databases
 
 database.db
+*.db
 
 # Build files
 
@@ -16,3 +17,10 @@ built_frontend
 # Editors
 
 .vscode
+.idea
+
+# Pytest coverage files
+.coverage
+cov.xml
+cov_annotate/
+cov_html/
