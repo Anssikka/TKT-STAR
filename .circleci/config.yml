@@ -78,7 +78,6 @@ jobs:
             cd backend/application/ && rm -rf built_frontend/
             cd ../../frontend/ && rm -rf build/
             npm install && npm run build && cp -r build/ ../backend/application/ && cd ../backend/application/ && mv build/ built_frontend/ && cd $PROJECT_ROOT
-            cd backend/ && python3 run.py
             git add . && git commit -m "Automatic build step"
       - run:
           name: deploy to Heroku
