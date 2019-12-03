@@ -1,8 +1,10 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render, cleanup, waitForElement, wait } from '@testing-library/react'
+import { render, cleanup, waitForElement } from '@testing-library/react'
 import VideoPage from '../../pages/VideoPage'
 import axios from 'axios'
+
+afterEach(cleanup)
 
 jest.mock('axios')
 
