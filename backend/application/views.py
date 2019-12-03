@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import cross_origin
 from .Handlers.dbHandler import DBHandler
+import os
 
 from .Models.models import Book
 
@@ -10,6 +11,13 @@ db = SQLAlchemy(app)
 
 dbh = DBHandler
 
+@app.route('/', defaults={'path':''})
+@app.route('/<path:path>')
+def home(path):
+    if path != "" and os.path.exists(app.static_folder + '/' + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/')
 @app.route('/api/recommendations/books', methods=['GET'])

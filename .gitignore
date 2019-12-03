@@ -11,8 +11,8 @@ database.db
 *.db
 
 # Build files
-
-built_frontend
+# COMMENTED OUT ONLY FOR HEROKU PUSH, DONT ACCEPT TO MASTER
+#built_frontend
 
 # Editors
 

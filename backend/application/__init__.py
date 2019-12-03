@@ -5,7 +5,6 @@ from flask_cors import CORS
 
 app = Flask(__name__, static_folder="built_frontend")
 
-
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 if os.environ.get("HEROKU"):
