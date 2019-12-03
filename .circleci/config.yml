@@ -67,11 +67,11 @@ jobs:
       - run:
           name: code-coverage
           command: 'npm run test-coverage'
-          
+
   deploy_heroku:
     docker:
       - image: buildpack-deps:trusty
-    stpes:
+    steps:
       - checkout
       - run:
           name: build frontend and install dependencies
