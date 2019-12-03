@@ -65,22 +65,35 @@ jobs:
 
   deploy_heroku:
     docker:
-      - image: buildpack-deps:trusty
+      - image: circleci/node:10.16.3
+
+    working_directory: ~/repo/
+
     steps:
-      - checkout
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: build frontend and install dependencies
           command: |
+            git config --global user.email "circle@ci.com"
+            git config --global user.name "CircleCi"
+            pwd
             PROJECT_ROOT=$(pwd)
             cd backend/application/ && rm -rf built_frontend/
             cd ../../frontend/ && rm -rf build/
             npm install && npm run build && cp -r build/ ../backend/application/ && cd ../backend/application/ && mv build/ built_frontend/ && cd $PROJECT_ROOT
-            cd backend/ && python3 run.py
+            git add . && git commit -m "Automatic build step" 
             git add . && git commit -m "Automatic build step"
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
       - run:
           name: deploy to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
 
 workflows:
   version: 2
