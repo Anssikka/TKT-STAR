@@ -64,6 +64,7 @@ jobs:
           command: 'npm run test-coverage'
 
   deploy_heroku:
+    workers: process.env.CIRCLE_NODE_TOTAL
     working_directory: ~/repo/frontend
     docker:
       - image: circleci/node:10.16.3
@@ -86,6 +87,7 @@ jobs:
       - run:
           name: build-npm
           command: |
+            unset CI
             npm run build 
       
       - run:
