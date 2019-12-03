@@ -36,6 +36,8 @@ if not os.path.isfile('./application/database.db'):
         db.create_all()
         print('***********************')
         print('LUODAAN UUSIKSI')
+        tempi = {'url': 'https://www.youtube.com/watch?v=I5z0W-rv4-Q', 'title': 'Valtterin huumorivideo',  'tags': ['Himoläski', 'Homer', 'kantsii kattoo nopee']}
+        dbh.post_video(dbh, db, tempi)
         tempi = {'author': 'Antwan Himmy', 'isbn': '4325311391', 'title': '100kg penkistä kuukaudessa', 'tags': ['Kehonrakennus', 'Hauiksenpaksuus']}
         dbh.post_book(dbh, db, tempi)
         tempi = {'author': 'Anssi Kattila', 'isbn': '4325242391', 'title': 'Rakastu, Rakastu jo!',
@@ -46,7 +48,4 @@ if not os.path.isfile('./application/database.db'):
         dbh.post_book(dbh, db, tempi)
         tempi = {'url': 'https://www.youtube.com/watch?v=Oj9A_z0pA1I', 'title': 'Jonin tanssimusat',
                  'tags': ['Tanssijalka', 'Vipattaa']}
-        dbh.post_video(dbh, db, tempi)
-        tempi = {'url': 'https://www.youtube.com/watch?v=I5z0W-rv4-Q', 'title': 'Valtterin huumorivideo',
-                 'tags': ['Himoläski', 'Homer', 'kantsii kattoo nopee']}
         dbh.post_video(dbh, db, tempi)
