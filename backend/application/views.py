@@ -35,7 +35,7 @@ def markAsRead(book_id):
 @app.route('/')
 @app.route('/api/recommendations/books/<book_id>', methods=['GET'])
 @cross_origin()
-def get_Book(book_id):
+def getBook(book_id):
     return dbh.get_book(dbh, db, book_id)
 
 
