@@ -11,3 +11,4 @@ HY ohjelmistotuotanto 2019 miniprojekti.
 [Database schema](https://drive.google.com/file/d/1i-tjaABCwqjmrZZLzulkx27-UuIq5R0D/view?usp=sharing)
 
 
+[Heroku link](https://tkt-star.herokuapp.com/recommendations/books)
