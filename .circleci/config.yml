@@ -91,20 +91,20 @@ jobs:
             npm run build 
       
       - run:
-          name: build frontend and install dependencies
+          name: move build to backend
           command: |
-            echo "cp -r build/ ../backend/application/ "
-            cp -r build/ ../backend/application/ 
-            echo "cd ../backend/application/"
-            cd ../backend/application/ 
-            echo "mv build/ built_frontend/"
-            mv build/ built_frontend/ 
-            echo "cd .."
-            cd ..
+            set -o nounset
+            set -o errexit
+            set -o xtrace
+            cp -r build/ ../backend/application/
+            mv ../backend/application/build/ ../backend/application/built_frontend/
              
       - run:
           name: push to Heroku
           command: |
+            set -o nounset
+            set -o errexit
+            set -o xtrace
             git config --global user.email "circle@ci.com"
             git config --global user.name "CircleCi"
             git add . && git commit -m "Automatic build step"
