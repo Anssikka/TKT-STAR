@@ -9,3 +9,5 @@ HY ohjelmistotuotanto 2019 miniprojekti.
 [Sprint backlog](https://github.com/Anssikka/TKT-STAR/projects/1)
 
 [Database schema](https://drive.google.com/file/d/1i-tjaABCwqjmrZZLzulkx27-UuIq5R0D/view?usp=sharing)
+
+
