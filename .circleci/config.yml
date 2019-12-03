@@ -73,7 +73,7 @@ jobs:
       - checkout:
           path: ~/repo
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: build frontend and install dependencies
           command: |
@@ -83,9 +83,9 @@ jobs:
             cd frontend && npm install && npm run build && cp -r build/ ../backend/application/ && cd ../backend/application/ && mv build/ built_frontend/ && cd ..
             git add . && git commit -m "Automatic build step"
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "frontend/package-lock.json" }}
           paths:
-            - ./node_modules
+            - frontend/node_modules
       - run:
           name: deploy to Heroku
           command: |
