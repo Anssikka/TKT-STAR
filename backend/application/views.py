@@ -36,6 +36,12 @@ def getBook(book_id):
     return dbh.get_book(dbh, db, book_id)
 
 
+@app.route('/api/recommendations/videos/<video_id>', methods=['GET'])
+@cross_origin()
+def getVideo(video_id):
+    return dbh.get_video(dbh, db, video_id)
+
+
 @app.route('/api/recommendations/videos', methods=['GET'])
 @cross_origin()
 def getVideos():
@@ -52,14 +58,8 @@ def postVideo():
 @app.route('/api/reset_database', methods=['GET', 'POST'])
 @cross_origin()
 def reset_database():
-    print('**************************')
-    print('METODI KÄYNNISTYI')
     if os.environ['PYTHON_ENV'] == 'TEST':
-        print('***********************')
-        print('LÄPI')
-        dbh.reset_database(dbh, db)
+        dbh.reset_database(dbh)
         return Response("", status=205)
     else:
-        print('***********************')
-        print('EI LÄPI')
         return Response("", status=403)

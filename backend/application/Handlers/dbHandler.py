@@ -1,5 +1,10 @@
 from ..Models.models import Book, Video, Recommendation, Tag, TagRecommendation
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
+
+from application import app
+from application import init_db, returnDB
+
+
 
 
 class DBHandler():
@@ -71,9 +76,16 @@ class DBHandler():
     def get_book(self, db, book_id):
         book = db.session.query(Book).filter(Book.id == book_id).first()
         if book == None:
-            return jsonify({"Error": "Book 404"})
+            return Response("", status=404)
 
         return jsonify(book.serialize)
+
+    def get_video(self, db, video_id):
+        video = db.session.query(Video).filter(Video.id == video_id).first()
+        if video == None:
+            return Response("", status=404)
+
+        return jsonify(video.serialize)
 
     def add_tag(self, rec, db, tag):
         tagObject = Tag(name=tag)
@@ -87,13 +99,8 @@ class DBHandler():
         db.session.add(tagRec)
         db.session.commit()
 
-    def reset_database(self, db):
-        print('RESETOITIIN')
-        db.drop_all()
-        print('RESETOITIIN2')
-        db.session.commit()
-        print('RESETOITIIN3')
-        db.create_all()
-        print('RESETOITIIN4')
-        db.session.commit()
-        print('RESETOITIIN5')
+    def reset_database(self):
+        db2 = returnDB()
+        db2.drop_all()
+        db2.create_all()
+        db2.session.commit()
