@@ -67,13 +67,12 @@ jobs:
     docker:
       - image: circleci/node:10.16.3
     steps:
-      - checkout:
-          path: ~/repo
+      - checkout
       - run:
           name: build frontend and install dependencies
           command: |
-            git config user.email "circle@ci.com"
-            git config user.name "CircleCi"
+            git config --global user.email "circle@ci.com"
+            git config --global user.name "CircleCi"
             PROJECT_ROOT=$(pwd)
             cd backend/application/ && rm -rf built_frontend/
             cd ../../frontend/ && rm -rf build/
