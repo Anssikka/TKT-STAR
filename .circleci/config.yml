@@ -79,7 +79,9 @@ jobs:
           command: |
             git config --global user.email "circle@ci.com"
             git config --global user.name "CircleCi"
+            echo "rm -rf ../../frontend/build/"
             rm -rf ../../frontend/build/
+            echo "cd frontend && npm install && npm run build && cp -r build/ ../backend/application/ && cd ../backend/application/ && mv build/ built_frontend/ && cd .."
             cd frontend && npm install && npm run build && cp -r build/ ../backend/application/ && cd ../backend/application/ && mv build/ built_frontend/ && cd ..
             git add . && git commit -m "Automatic build step"
       - save_cache:
