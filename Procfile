@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: cd backend/ && gunicorn --preload --workers 1 application:app
