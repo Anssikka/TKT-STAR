@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../styles/Book.css'
+import '../../styles/Recommendation.css'
 import Toggle from '../common/Toggle'
 
 function Book({ title, author, isbn, tags, isRead, handleToggle }) {
@@ -16,10 +17,10 @@ function Book({ title, author, isbn, tags, isRead, handleToggle }) {
     )
   }
   const showTags = () => {
-    if (Array.isArray(tags)) {
+    if (Array.isArray(tags) && tags.length) {
       return (
         <>
-          <h6 className="book-tag-title">Tags:</h6>
+          <h6 className="recommendation-tag-title">Tags:</h6>
           <ul>
             {tags.map(tag => (
               <li key={`${title}-${tag.id}`}>{tag.title}</li>
@@ -33,7 +34,7 @@ function Book({ title, author, isbn, tags, isRead, handleToggle }) {
   }
 
   return (
-    <div className="book">
+    <div className="recommendation">
       <h5>{title}</h5>
       {showAuthor()}
       {showIsbn()}

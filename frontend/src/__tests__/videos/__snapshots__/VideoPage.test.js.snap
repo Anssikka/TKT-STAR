@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<VideoPage /> has correct elements 1`] = `
+<DocumentFragment>
+  <main
+    class="recommendation-page"
+  >
+    <h1
+      class="page-title"
+    >
+      Video Recommendations
+    </h1>
+    <h3
+      class="page-subtitle"
+    >
+      Add a Video
+    </h3>
+    <div
+      class="video-form-wrapper"
+    >
+      <form
+        class="video-form"
+      >
+        <label>
+          Title:
+        </label>
+        <input
+          data-testid="add-video-title"
+          placeholder="Type your video title"
+          type="text"
+          value=""
+        />
+        <label>
+          URL:
+        </label>
+        <input
+          data-testid="add-video-url"
+          placeholder="Type your URL here"
+          type="text"
+          value=""
+        />
+        <input
+          class="form-submit"
+          data-testid="add-video-submit"
+          type="submit"
+          value="Submit"
+        />
+      </form>
+    </div>
+    <div>
+      <h3
+        class="page-subtitle"
+      >
+        Saved Videos
+      </h3>
+      <div
+        class="recommendation"
+      >
+        <h5>
+          Test 101
+        </h5>
+        <a
+          href="https://example.com"
+          target="_blank"
+        >
+          https://example.com
+        </a>
+        <h6
+          class="recommendation-tag-title"
+        >
+          Tags:
+        </h6>
+        <ul>
+          <li>
+            Tag #1
+          </li>
+          <li>
+            Tag #2
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;

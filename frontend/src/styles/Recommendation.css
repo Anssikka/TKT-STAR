@@ -1,0 +1,42 @@
+.recommendation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: #2c2c2c;
+  color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.recommendation h5,
+h6 {
+  margin: 0 0 0.5rem 0;
+}
+
+.recommendation h6.recommendation-tag-title {
+  margin: 0.2rem 0;
+}
+
+/* Tags */
+
+.recommendation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recommendation li {
+  display: inline;
+  font-size: 1.1rem;
+}
+
+.recommendation li::after {
+  content: ', ';
+}
+
+.recommendation li:last-child::after {
+  content: '';
+}

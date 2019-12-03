@@ -3,7 +3,7 @@
 exports[`<BookPage /> has correct elements 1`] = `
 <DocumentFragment>
   <main
-    class="book-page"
+    class="recommendation-page"
   >
     <h1
       class="page-title"
@@ -63,7 +63,7 @@ exports[`<BookPage /> has correct elements 1`] = `
         Saved Books
       </h3>
       <div
-        class="book"
+        class="recommendation"
       >
         <h5>
           Test 101
@@ -82,7 +82,7 @@ exports[`<BookPage /> has correct elements 1`] = `
           Mark as read
         </button>
         <h6
-          class="book-tag-title"
+          class="recommendation-tag-title"
         >
           Tags:
         </h6>
@@ -96,7 +96,7 @@ exports[`<BookPage /> has correct elements 1`] = `
         </ul>
       </div>
       <div
-        class="book"
+        class="recommendation"
       >
         <h5>
           Only Title
