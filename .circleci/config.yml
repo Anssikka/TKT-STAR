@@ -73,10 +73,9 @@ jobs:
           command: |
             git config --global user.email "circle@ci.com"
             git config --global user.name "CircleCi"
-            PROJECT_ROOT=$(pwd)
-            cd backend/application/ && rm -rf built_frontend/
+            cd ~/repo/backend/application/ && rm -rf built_frontend/
             cd ../../frontend/ && rm -rf build/
-            npm install && npm run build && cp -r build/ ../backend/application/ && cd ../backend/application/ && mv build/ built_frontend/ && cd $PROJECT_ROOT
+            npm install && npm run build && cp -r build/ ../backend/application/ && cd ../backend/application/ && mv build/ built_frontend/ && cd ~/repo
             git add . && git commit -m "Automatic build step"
       - run:
           name: deploy to Heroku
