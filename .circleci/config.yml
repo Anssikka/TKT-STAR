@@ -64,11 +64,9 @@ jobs:
           command: 'npm run test-coverage'
 
   deploy_heroku:
+    working_directory: ~/repo/frontend
     docker:
       - image: circleci/node:10.16.3
-
-    working_directory: ~/repo/frontend
-
     steps:
       - checkout:
           path: ~/repo
@@ -76,14 +74,23 @@ jobs:
           name: update-npm
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
-          key: dependency-cache-{{ checksum "frontend/package-lock.json" }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+
+      - run:
+          name: build-npm
+          command: |
+            npm run build 
+      
       - run:
           name: build frontend and install dependencies
           command: |
-            echo "npm install"
-            npm install
-            echo "npm run build"
-            npm run build 
             echo "cp -r build/ ../backend/application/ "
             cp -r build/ ../backend/application/ 
             echo "cd ../backend/application/"
@@ -93,12 +100,8 @@ jobs:
             echo "cd .."
             cd ..
              
-      - save_cache:
-          key: dependency-cache-{{ checksum "frontend/package-lock.json" }}
-          paths:
-            - frontend/node_modules
       - run:
-          name: deploy to Heroku
+          name: push to Heroku
           command: |
             git config --global user.email "circle@ci.com"
             git config --global user.name "CircleCi"
