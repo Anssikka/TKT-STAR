@@ -32,9 +32,11 @@ jobs:
           command: |
             . venv/bin/activate
             pytest
-
+      
+      - run:
           name: run backend test-coverage
           command: |
+            . venv/bin/activate
             pytest --cov-report html:cov_html --cov-report xml:cov.xml --cov-report annotate:cov_annotate --cov=application application/tests/
 
       - store_artifacts:
