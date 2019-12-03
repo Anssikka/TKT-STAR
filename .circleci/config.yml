@@ -77,6 +77,7 @@ jobs:
           command: |
             git config --global user.email "circle@ci.com"
             git config --global user.name "CircleCi"
+            pwd
             PROJECT_ROOT=$(pwd)
             cd backend/application/ && rm -rf built_frontend/
             cd ../../frontend/ && rm -rf build/
