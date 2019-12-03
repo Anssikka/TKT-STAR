@@ -95,12 +95,16 @@ def test_cannot_get_nonexistant_book(client):
 
     rv = client.get('/api/recommendations/books/2')
 
-    assert b'404' in rv.data
+    assert rv.status_code == 404
 
     db = returnDB()
     db.drop_all()
 
 
-def test_2cannot_get_nonexistant_book(client):
-    rv = client.get('/api/recommendations/videos')
-    json_data = rv.get_json()
+def test_cannot_get_nonexistant_video(client):
+    rv = client.get('/api/recommendations/videos/1')
+
+    assert rv.status_code == 404
+
+    db = returnDB()
+    db.drop_all()
