@@ -4,7 +4,7 @@ import PageTitle from '../components/PageTitle'
 import BookList from '../components/books/BookList'
 import AddBookForm from '../components/books/AddBookForm'
 import PageSubtitle from '../components/PageSubtitle'
-import '../styles/BookPage.css'
+import '../styles/RecommendationPage.css'
 
 function BookPage() {
   const [books, setBooks] = useState([])
@@ -40,7 +40,7 @@ function BookPage() {
   }
 
   return (
-    <main className="book-page">
+    <main className="recommendation-page">
       <PageTitle title="Book Recommendations" />
       <PageSubtitle title="Add a Book" />
       <AddBookForm handleSubmit={addBook} />
