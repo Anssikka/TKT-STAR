@@ -96,8 +96,10 @@ jobs:
             set -o nounset
             set -o errexit
             set -o xtrace
+            ls ../backend/application
             cp -r build/ ../backend/application/
             mv ../backend/application/build/ ../backend/application/built_frontend/
+            ls ../backend/application
              
       - run:
           name: push to Heroku
