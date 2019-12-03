@@ -49,3 +49,4 @@ if not os.path.isfile('./application/database.db'):
         dbh.post_video(dbh, db, tempi)
         tempi = {'url': 'https://www.youtube.com/watch?v=I5z0W-rv4-Q', 'title': 'Valtterin huumorivideo',
                  'tags': ['Himoläski', 'Homer', 'kantsii kattoo nopee']}
+        dbh.post_video(dbh, db, tempi)

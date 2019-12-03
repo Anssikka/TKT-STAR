@@ -90,6 +90,10 @@ class DBHandler():
     def reset_database(self, db):
         print('RESETOITIIN')
         db.drop_all()
+        print('RESETOITIIN2')
         db.session.commit()
+        print('RESETOITIIN3')
         db.create_all()
+        print('RESETOITIIN4')
         db.session.commit()
+        print('RESETOITIIN5')
