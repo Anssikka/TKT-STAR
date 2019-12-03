@@ -65,12 +65,15 @@ jobs:
 
   deploy_heroku:
     docker:
-      - image: buildpack-deps:trusty
+      - image: circleci/node:10.16.3
     steps:
-      - checkout
+      - checkout:
+          path: ~/repo
       - run:
           name: build frontend and install dependencies
           command: |
+            git config user.email "circle@ci.com"
+            git config user.name "CircleCi"
             PROJECT_ROOT=$(pwd)
             cd backend/application/ && rm -rf built_frontend/
             cd ../../frontend/ && rm -rf build/
