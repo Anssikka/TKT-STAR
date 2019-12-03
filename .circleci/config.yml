@@ -100,6 +100,7 @@ jobs:
             cp -r build/ ../backend/application/
             mv ../backend/application/build/ ../backend/application/built_frontend/
             ls ../backend/application
+            ls ../backend/application/built_frontend/
              
       - run:
           name: push to Heroku
