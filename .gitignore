@@ -10,10 +10,6 @@ __pycache__
 database.db
 *.db
 
-# Build files
-# COMMENTED OUT ONLY FOR HEROKU PUSH, DONT ACCEPT TO MASTER
-#built_frontend
-
 # Editors
 
 .vscode
