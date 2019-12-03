@@ -18,8 +18,6 @@ db = SQLAlchemy(app)
 
 from .Models.models import Book, Recommendation, Video
 
-from application import views
-
 
 
 def create_app(config_ubject):
@@ -33,11 +31,15 @@ def init_db():
 def returnDB():
     return db
 
+from application import views
+
 from .views import dbh
 
 if not os.path.isfile('./application/database.db'):
     with app.app_context():
         db.create_all()
+        tempi = {'url': 'https://www.youtube.com/watch?v=I5z0W-rv4-Q', 'title': 'Valtterin huumorivideo',  'tags': ['Himoläski', 'Homer', 'kantsii kattoo nopee']}
+        dbh.post_video(dbh, db, tempi)
         tempi = {'author': 'Antwan Himmy', 'isbn': '4325311391', 'title': '100kg penkistä kuukaudessa', 'tags': ['Kehonrakennus', 'Hauiksenpaksuus']}
         dbh.post_book(dbh, db, tempi)
         tempi = {'author': 'Anssi Kattila', 'isbn': '4325242391', 'title': 'Rakastu, Rakastu jo!',
@@ -49,10 +51,3 @@ if not os.path.isfile('./application/database.db'):
         tempi = {'url': 'https://www.youtube.com/watch?v=Oj9A_z0pA1I', 'title': 'Jonin tanssimusat',
                  'tags': ['Tanssijalka', 'Vipattaa']}
         dbh.post_video(dbh, db, tempi)
-        tempi = {'url': 'https://www.youtube.com/watch?v=I5z0W-rv4-Q', 'title': 'Valtterin huumorivideo',
-                 'tags': ['Himoläski', 'Homer', 'kantsii kattoo nopee']}
-
-
-
-
-#dsada
