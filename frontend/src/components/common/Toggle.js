@@ -6,7 +6,7 @@ function Toggle({ text, handleToggle, className }) {
   const defaultClassName = 'button toggle'
 
   return (
-    <button onClick={handleToggle} className={className || defaultClassName}>
+    <button onClick={handleToggle} className={className || defaultClassName} data-testid="toggle">
       {text}
     </button>
   )

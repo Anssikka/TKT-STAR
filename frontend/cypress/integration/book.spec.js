@@ -1,8 +1,13 @@
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://localhost:5000'
 
 describe('Book Page', function() {
   beforeEach(function() {
+    resetDatabase()
     cy.visit(`${baseUrl}/recommendations/books`)
+  })
+
+  afterEach(function() {
+    resetDatabase()
   })
 
   it('can be opened', function() {
@@ -10,18 +15,34 @@ describe('Book Page', function() {
   })
 
   it('can add a book', function() {
-    cy.get('[data-testid=add-book-title]').type('My First Title')
-    cy.get('[data-testid=add-book-author]').type('Tester')
-    cy.get('[data-testid=add-book-isbn]').type('0-123456789')
+    const title = 'My First Title'
+    const author = 'Tester'
+    const isbn = '0-123456789'
+    addBookViaForm(title, author, isbn)
 
-    cy.get('[data-testid=add-book-submit]').click()
-
-    cy.contains('My First Title')
-    cy.contains('Tester')
-    cy.contains('0-123456789')
+    cy.contains(title)
+    cy.contains(author)
+    cy.contains(isbn)
   })
 
-  // it('can mark a book as read', function() {
+  it('can mark a book as read', function() {
+    const title = 'My Second Title'
+    const author = 'Tester Two'
+    const isbn = '9-876543210'
+    addBookViaForm(title, author, isbn)
 
-  // })
+    cy.get('[data-testid=toggle]').click()
+    cy.contains('Mark as not read')
+  })
 })
+
+const addBookViaForm = (title, author, isbn) => {
+  cy.get('[data-testid=add-book-title]').type(title)
+  cy.get('[data-testid=add-book-author]').type(author)
+  cy.get('[data-testid=add-book-isbn]').type(isbn)
+  cy.get('[data-testid=add-book-submit]').click()
+}
+
+const resetDatabase = () => {
+  cy.request('POST', 'http://localhost:5000/api/reset_database')
+}
