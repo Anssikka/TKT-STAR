@@ -34,6 +34,8 @@ from .views import dbh
 if not os.path.isfile('./application/database.db'):
     with app.app_context():
         db.create_all()
+        print('***********************')
+        print('LUODAAN UUSIKSI')
         tempi = {'author': 'Antwan Himmy', 'isbn': '4325311391', 'title': '100kg penkistä kuukaudessa', 'tags': ['Kehonrakennus', 'Hauiksenpaksuus']}
         dbh.post_book(dbh, db, tempi)
         tempi = {'author': 'Anssi Kattila', 'isbn': '4325242391', 'title': 'Rakastu, Rakastu jo!',
@@ -47,8 +49,3 @@ if not os.path.isfile('./application/database.db'):
         dbh.post_video(dbh, db, tempi)
         tempi = {'url': 'https://www.youtube.com/watch?v=I5z0W-rv4-Q', 'title': 'Valtterin huumorivideo',
                  'tags': ['Himoläski', 'Homer', 'kantsii kattoo nopee']}
-
-
-
-
-#dsada

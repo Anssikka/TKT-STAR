@@ -3,13 +3,13 @@ from flask import Flask, jsonify
 
 
 class DBHandler():
-    def get_books(app):
+    def get_books(self, app):
         with app.app_context():
             books = Book.query.all()
 
             return jsonify([book.serialize for book in books])
 
-    def get_videos(app):
+    def get_videos(self, app):
         with app.app_context():
             videos = Video.query.all()
             return jsonify([video.serialize for video in videos])
@@ -29,7 +29,7 @@ class DBHandler():
 
         if json.get('tags'):
             for tag in json.get('tags'):
-                self.add_tag(rec, db, tag)
+                self.add_tag(self, rec, db, tag)
 
         return jsonify(video.serialize)
 
@@ -51,7 +51,7 @@ class DBHandler():
 
         if json.get('tags'):
             for tag in json.get('tags'):
-                self.add_tag(rec, db, tag)
+                self.add_tag(self, rec, db, tag)
 
         return jsonify(book.serialize)
 
@@ -75,7 +75,7 @@ class DBHandler():
 
         return jsonify(book.serialize)
 
-    def add_tag(rec, db, tag):
+    def add_tag(self, rec, db, tag):
         tagObject = Tag(name=tag)
         db.session.add(tagObject)
         db.session.commit()
@@ -85,4 +85,11 @@ class DBHandler():
         tagRec = TagRecommendation(
             tag_id=tagObject.id, recommendation_id=rec.id)
         db.session.add(tagRec)
+        db.session.commit()
+
+    def reset_database(self, db):
+        print('RESETOITIIN')
+        db.drop_all()
+        db.session.commit()
+        db.create_all()
         db.session.commit()
