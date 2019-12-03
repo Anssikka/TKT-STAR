@@ -26,15 +26,14 @@ jobs:
       - save_cache:
           paths:
             - ./venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
+          key: v1-dependencies-{{ checksum "../requirements.txt" }}
 
           name: run tests
           command: |
             . venv/bin/activate
             pytest
 
-      - run:
-          name: run test-coverage
+          name: run backend test-coverage
           command: |
             pytest --cov-report html:cov_html --cov-report xml:cov.xml --cov-report annotate:cov_annotate --cov=application application/tests/
 
