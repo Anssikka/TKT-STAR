@@ -63,7 +63,7 @@ def postVideo():
     return dbh.post_video(dbh, db, json)
 
 
-@app.route('/api/reset_database', methods=['GET', 'POST'])
+@app.route('/api/reset_database', methods=['POST'])
 @cross_origin()
 def reset_database():
     if os.environ['PYTHON_ENV'] == 'TEST':
