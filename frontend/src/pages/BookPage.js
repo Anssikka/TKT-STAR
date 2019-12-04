@@ -5,6 +5,7 @@ import BookList from '../components/books/BookList'
 import AddBookForm from '../components/books/AddBookForm'
 import PageSubtitle from '../components/PageSubtitle'
 import '../styles/RecommendationPage.css'
+import Toggle from '../components/common/Toggle'
 
 function BookPage() {
   const [books, setBooks] = useState([])
@@ -39,11 +40,18 @@ function BookPage() {
     }
   }
 
+  const handleFilter = async => {
+    const newBooks = []
+    books.map(b => (b.isRead ? newBooks[b.id] = b : null))
+    setBooks(newBooks)
+  }
+
   return (
     <main className="recommendation-page">
       <PageTitle title="Book Recommendations" />
       <PageSubtitle title="Add a Book" />
       <AddBookForm handleSubmit={addBook} />
+      <Toggle text="Filter by read" handleToggle={handleFilter} className={`toggle button active`} />
       <BookList title="Saved Books" books={books} handleToggle={handleToggle} />
     </main>
   )

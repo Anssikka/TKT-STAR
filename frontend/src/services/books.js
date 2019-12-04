@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/recommendations/books'
+const baseUrl = 'http://localhost:5000/api/recommendations/books'
 
 const createBook = async book => {
   const response = await axios.post(baseUrl, book)
