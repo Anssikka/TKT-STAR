@@ -34,3 +34,7 @@ def returnDB():
 from application import views
 
 from .views import dbh
+
+if not os.path.isfile('./application/database.db'):
+    with app.app_context():
+        db.create_all()
