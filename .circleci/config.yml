@@ -64,35 +64,51 @@ jobs:
           command: 'npm run test-coverage'
 
   deploy_heroku:
+    workers: process.env.CIRCLE_NODE_TOTAL
+    working_directory: ~/repo/frontend
     docker:
       - image: circleci/node:10.16.3
-
-    working_directory: ~/repo/
-
     steps:
       - checkout:
           path: ~/repo
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          name: build frontend and install dependencies
-          command: |
-            git config --global user.email "circle@ci.com"
-            git config --global user.name "CircleCi"
-            pwd
-            PROJECT_ROOT=$(pwd)
-            cd backend/application/ && rm -rf built_frontend/
-            cd ../../frontend/ && rm -rf build/
-            npm install && npm run build && cp -r build/ ../backend/application/ && cd ../backend/application/ && mv build/ built_frontend/ && cd $PROJECT_ROOT
-            git add . && git commit -m "Automatic build step" 
-            git add . && git commit -m "Automatic build step"
+          name: install-npm-wee
+          command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
+
       - run:
-          name: deploy to Heroku
+          name: build-npm
           command: |
+            unset CI
+            npm run build 
+      
+      - run:
+          name: move build to backend
+          command: |
+            set -o nounset
+            set -o errexit
+            set -o xtrace
+            cp -r build/ ../backend/application/
+            mv ../backend/application/build/ ../backend/application/built_frontend/
+             
+      - run:
+          name: push to Heroku
+          command: |
+            set -o nounset
+            set -o errexit
+            set -o xtrace
+            git config --global user.email "circle@ci.com"
+            git config --global user.name "CircleCi"
+            git add ../backend/application/built_frontend/
+            git commit -m "Automatic build step"
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
 
 workflows:

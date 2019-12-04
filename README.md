@@ -11,3 +11,10 @@ HY ohjelmistotuotanto 2019 miniprojekti.
 [Database schema](https://drive.google.com/file/d/1i-tjaABCwqjmrZZLzulkx27-UuIq5R0D/view?usp=sharing)
 
 
+[Heroku link](https://tkt-star.herokuapp.com/recommendations/books)
+
+### Definition of Done
+
+* All tasks related to the User Story are done & testing is automated
+* Features related to User Story are in production
+* User Story's acceptance criteria is fulfilled
