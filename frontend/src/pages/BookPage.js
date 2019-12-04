@@ -6,9 +6,12 @@ import AddBookForm from '../components/books/AddBookForm'
 import PageSubtitle from '../components/PageSubtitle'
 import '../styles/RecommendationPage.css'
 import Toggle from '../components/common/Toggle'
+import FilterToggle from '../components/common/FilterToggle'
 
 function BookPage() {
   const [books, setBooks] = useState([])
+  const [isFiltered, setIsFiltered] = useState(false)
+
   useEffect(() => {
     getBooks()
   }, [])
@@ -40,10 +43,14 @@ function BookPage() {
     }
   }
 
-  const handleFilter = async => {
-    const newBooks = []
-    books.map(b => (b.isRead ? newBooks[b.id] = b : null))
-    setBooks(newBooks)
+  const handleFilter = async () => {
+    if (isFiltered) {
+      await getBooks()
+      setIsFiltered(!isFiltered)
+    } else {
+      setBooks(books.filter(b => b.isRead))
+      setIsFiltered(!isFiltered)
+    }
   }
 
   return (
@@ -51,7 +58,12 @@ function BookPage() {
       <PageTitle title="Book Recommendations" />
       <PageSubtitle title="Add a Book" />
       <AddBookForm handleSubmit={addBook} />
-      <Toggle text="Filter by read" handleToggle={handleFilter} className={`toggle button active`} />
+      <FilterToggle
+        filterText="Show read books"
+        resetText="Show all books"
+        handleFilter={handleFilter}
+        isFiltered={isFiltered}
+      />
       <BookList title="Saved Books" books={books} handleToggle={handleToggle} />
     </main>
   )
