@@ -31,8 +31,7 @@ describe('Book Page', function() {
     const isbn = '9-876543210'
     addBookViaForm(title, author, isbn)
 
-    cy.get('[data-testid=toggle]').click()
-    cy.contains('Mark as not read')
+    cy.contains('Mark as read').click()
   })
 })
 
