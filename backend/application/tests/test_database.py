@@ -38,6 +38,21 @@ def test_get_books_after_post(client):
     db = returnDB()
     db.drop_all()
 
+def test_get_blogs_after_post(client):
+    rv = client.post('/api/recommendations/blogs', json={'title': 'TestTitle2',
+                                                         'url': 'TestUrl',
+                                                         'blogger': 'TestISBN',
+                                                         'tags': ['TestTags']})
+
+    rv = client.get('/api/recommendations/blogs')
+
+    assert b'TestTitle2' in rv.data
+    assert b'TestUrl' in rv.data
+    assert b'TestISBN' in rv.data
+    assert b'TestTags' in rv.data
+
+    db = returnDB()
+    db.drop_all()
 
 def test_get_videos_after_post(client):
 
@@ -108,3 +123,4 @@ def test_cannot_get_nonexistant_video(client):
 
     db = returnDB()
     db.drop_all()
+

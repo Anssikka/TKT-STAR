@@ -1,4 +1,4 @@
-from ..Models.models import Book, Video, Recommendation, Tag, TagRecommendation
+from ..Models.models import Book, Video, Recommendation, Tag, TagRecommendation, Blog
 from flask import Flask, jsonify, Response
 
 from application import app
@@ -8,11 +8,30 @@ from application import init_db, returnDB
 
 
 class DBHandler():
+    def get_recommendations(self, app):
+        with app.app_context():
+            books = Book.query.all()
+            videos = Video.query.all()
+            blogs = Blog.query.all()
+
+            dict = {
+                "book": [book.serialize for book in books],
+                "video": [video.serialize for video in videos],
+                "blog": [blog.serialize for blog in blogs]
+            }
+            return jsonify(dict)
+
+
     def get_books(self, app):
         with app.app_context():
             books = Book.query.all()
-
+            print(type(books))
             return jsonify([book.serialize for book in books])
+
+    def get_blogs(self, app):
+        with app.app_context():
+            blogs = Blog.query.all()
+            return jsonify([blog.serialize for blog in blogs])
 
     def get_videos(self, app):
         with app.app_context():
@@ -59,6 +78,26 @@ class DBHandler():
                 self.add_tag(self, rec, db, tag)
 
         return jsonify(book.serialize)
+
+    def post_blog(self, db, json):
+        blogger = json.get('blogger')
+        url = json.get('url')
+        title = json.get('title')
+
+        rec = Recommendation()
+        blog = Blog(url=url, title=title, blogger=blogger, recommendation=rec)
+
+        db.session.add(rec)
+        db.session.add(blog)
+        db.session.commit()
+
+        db.session.refresh(rec)
+
+        if json.get('tags'):
+            for tag in json.get('tags'):
+                self.add_tag(self, rec, db, tag)
+
+        return jsonify(blog.serialize)
 
     def update_book(self, db, book_id):
         book = db.session.query(Book).filter(Book.id == book_id).first()

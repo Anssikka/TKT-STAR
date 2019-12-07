@@ -12,6 +12,11 @@ db = SQLAlchemy(app)
 
 dbh = DBHandler
 
+@app.route('/api/recommendations/', methods=['GET'])
+@cross_origin()
+def getRecommendations():
+    return dbh.get_recommendations(dbh, app)
+
 @app.route('/', defaults={'path':''})
 @app.route('/<path:path>')
 def home(path):
@@ -42,6 +47,17 @@ def markAsRead(book_id):
 @cross_origin()
 def getBook(book_id):
     return dbh.get_book(dbh, db, book_id)
+
+@app.route('/api/recommendations/blogs', methods=['GET'])
+@cross_origin()
+def getBlogs():
+    return dbh.get_blogs(dbh, app)
+
+@app.route('/api/recommendations/blogs', methods=['POST'])
+@cross_origin()
+def postBlog():
+    json = request.json
+    return dbh.post_blog(dbh, db, json)
 
 
 @app.route('/api/recommendations/videos/<video_id>', methods=['GET'])
