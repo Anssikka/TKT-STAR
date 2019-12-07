@@ -5,8 +5,6 @@ from application import app
 from application import init_db, returnDB
 
 
-
-
 class DBHandler():
     def get_books(self, app):
         with app.app_context():
@@ -87,7 +85,7 @@ class DBHandler():
 
         return jsonify(video.serialize)
 
-    def add_tag(self, rec, db, tag):
+    def add_tag(self, recomendation, db, tag):
         tagObject = Tag(name=tag)
         db.session.add(tagObject)
         db.session.commit()
@@ -95,7 +93,7 @@ class DBHandler():
         db.session.refresh(tagObject)
 
         tagRec = TagRecommendation(
-            tag_id=tagObject.id, recommendation_id=rec.id)
+            tag_id=tagObject.id, recommendation_id=recomendation.id)
         db.session.add(tagRec)
         db.session.commit()
 
