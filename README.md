@@ -20,3 +20,5 @@ HY ohjelmistotuotanto 2019 miniprojekti.
 * All tasks related to the User Story are done & testing is automated
 * Features related to User Story are in production
 * User Story's acceptance criteria is fulfilled
+
+
