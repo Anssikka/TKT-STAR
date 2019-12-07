@@ -22,3 +22,5 @@ HY ohjelmistotuotanto 2019 miniprojekti.
 * User Story's acceptance criteria is fulfilled
 
 
+
+
