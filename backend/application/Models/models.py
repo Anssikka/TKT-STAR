@@ -25,9 +25,7 @@ class Book(db.Model):
     @property
     def serialize(self):
         tags = (Tag.query.join(TagRecommendation).join(Recommendation)
-                .filter(
-            (Tag.id == TagRecommendation.tag_id) & (TagRecommendation.recommendation_id == Recommendation.id)
-            & (Recommendation.id == self.recommendation_id))
+                .filter((Tag.id == TagRecommendation.tag_id) & (TagRecommendation.recommendation_id == Recommendation.id) & (Recommendation.id == self.recommendation_id))
                 .all())
 
         tags = [tag.serialize for tag in tags]
@@ -42,10 +40,12 @@ class Book(db.Model):
             'tags': tags
         }
 
+
 class Blog(db.Model):
     __tablename__ = 'blog'
     id = db.Column(db.Integer, primary_key=True)
-    recommendation_id = db.Column(db.Integer, db.ForeignKey('recommendation.id'))
+    recommendation_id = db.Column(
+        db.Integer, db.ForeignKey('recommendation.id'))
     blogger = db.Column(db.String(250), nullable=False)
     url = db.Column(db.String(250), nullable=False)
     title = db.Column(db.String(250), nullable=False)
@@ -54,9 +54,10 @@ class Blog(db.Model):
     def serialize(self):
         tags = (Tag.query.join(TagRecommendation).join(Recommendation)
                 .filter(
-            (Tag.id == TagRecommendation.tag_id) & (TagRecommendation.recommendation_id == Recommendation.id)
+            (Tag.id == TagRecommendation.tag_id) & (
+                TagRecommendation.recommendation_id == Recommendation.id)
             & (Recommendation.id == self.recommendation_id))
-                .all())
+            .all())
 
         tags = [tag.serialize for tag in tags]
         return {
@@ -67,10 +68,12 @@ class Blog(db.Model):
             'tags': tags
         }
 
+
 class Video(db.Model):
     __tablename__ = 'video'
     id = db.Column(db.Integer, primary_key=True)
-    recommendation_id = db.Column(db.Integer, db.ForeignKey('recommendation.id'))
+    recommendation_id = db.Column(
+        db.Integer, db.ForeignKey('recommendation.id'))
     url = db.Column(db.String(250), nullable=False)
     title = db.Column(db.String(250), nullable=False)
 

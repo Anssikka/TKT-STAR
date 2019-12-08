@@ -5,8 +5,6 @@ from application import app
 from application import init_db, returnDB
 
 
-
-
 class DBHandler():
     def get_recommendations(self, app):
         with app.app_context():
@@ -21,22 +19,50 @@ class DBHandler():
             }
             return jsonify(dict)
 
+    def get_recommendations_by_tag(self, app, tag):
+        with app.app_context():
+            books = self.get_books_by_tag(self, app, tag)
+            videos = self.get_videos_by_tag(self, app, tag)
+            blogs = self.get_blogs_by_tag(self, app, tag)
+
+            dict = {
+                "book": books,
+                "video": videos,
+                "blog": blogs
+            }
+
+            return jsonify(dict)
 
     def get_books(self, app):
         with app.app_context():
             books = Book.query.all()
-            print(type(books))
             return jsonify([book.serialize for book in books])
+
+    def get_books_by_tag(self, app, tag):
+        return self.get_something_by_tag(self, app, tag, Book)
 
     def get_blogs(self, app):
         with app.app_context():
             blogs = Blog.query.all()
             return jsonify([blog.serialize for blog in blogs])
 
+    def get_blogs_by_tag(self, app, tag):
+        return self.get_something_by_tag(self, app, tag, Blog)
+
     def get_videos(self, app):
         with app.app_context():
             videos = Video.query.all()
             return jsonify([video.serialize for video in videos])
+
+    def get_videos_by_tag(self, app, tag):
+        return self.get_something_by_tag(self, app, tag, Video)
+
+    def get_something_by_tag(self, app, tag, something):
+        with app.app_context():
+            something_by_tag = something.query.join(Recommendation, something.recommendation_id == Recommendation.id).join(
+                TagRecommendation, Recommendation.id == TagRecommendation.recommendation_id).join(Tag, TagRecommendation.tag_id == Tag.id).filter(Tag.name == tag)
+
+            return [recommendation.serialize for recommendation in something_by_tag]
 
     def post_video(self, db, json):
         url = json.get('url')
@@ -53,7 +79,11 @@ class DBHandler():
 
         if json.get('tags'):
             for tag in json.get('tags'):
-                self.add_tag(self, rec, db, tag)
+                tag_in_database = Tag.query.filter(Tag.name == tag).first()
+                if tag_in_database == None:
+                    self.add_tag(self, rec, db, tag)
+                else:
+                    self.add_tag_recommendation(self, rec, db, tag_in_database)
 
         return jsonify(video.serialize)
 
@@ -75,7 +105,11 @@ class DBHandler():
 
         if json.get('tags'):
             for tag in json.get('tags'):
-                self.add_tag(self, rec, db, tag)
+                tag_in_database = Tag.query.filter(Tag.name == tag).first()
+                if tag_in_database == None:
+                    self.add_tag(self, rec, db, tag)
+                else:
+                    self.add_tag_recommendation(self, rec, db, tag_in_database)
 
         return jsonify(book.serialize)
 
@@ -95,7 +129,11 @@ class DBHandler():
 
         if json.get('tags'):
             for tag in json.get('tags'):
-                self.add_tag(self, rec, db, tag)
+                tag_in_database = Tag.query.filter(Tag.name == tag).first()
+                if tag_in_database == None:
+                    self.add_tag(self, rec, db, tag)
+                else:
+                    self.add_tag_recommendation(self, rec, db, tag_in_database)
 
         return jsonify(blog.serialize)
 
@@ -136,6 +174,12 @@ class DBHandler():
         tagRec = TagRecommendation(
             tag_id=tagObject.id, recommendation_id=rec.id)
         db.session.add(tagRec)
+        db.session.commit()
+
+    def add_tag_recommendation(self, rec, db, tag):
+        tag_recommandation = TagRecommendation(
+            tag_id=tag.id, recommendation_id=rec.id)
+        db.session.add(tag_recommandation)
         db.session.commit()
 
     def reset_database(self):

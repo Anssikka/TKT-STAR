@@ -3,6 +3,7 @@ import tempfile
 
 import pytest
 
+from ..Models.models import Book, Video, Recommendation, Tag, TagRecommendation, Blog
 from application import app
 from application import init_db, returnDB
 
@@ -38,6 +39,7 @@ def test_get_books_after_post(client):
     db = returnDB()
     db.drop_all()
 
+
 def test_get_blogs_after_post(client):
     rv = client.post('/api/recommendations/blogs', json={'title': 'TestTitle2',
                                                          'url': 'TestUrl',
@@ -53,6 +55,7 @@ def test_get_blogs_after_post(client):
 
     db = returnDB()
     db.drop_all()
+
 
 def test_get_videos_after_post(client):
 
@@ -124,3 +127,109 @@ def test_cannot_get_nonexistant_video(client):
     db = returnDB()
     db.drop_all()
 
+
+def test_all_videos_blogs_and_books_are_found(client):
+    client.post('/api/recommendations/books', json={"title": "TITLE",
+                                                    "author": "AUTHOR",
+                                                    "isbn": 23452345,
+                                                    "tags": ["tag1", "tag2"]
+                                                    })
+
+    client.post('/api/recommendations/videos', json={"url": "WWW.URLI.COM",
+                                                     "title": "TITLE",
+                                                     "tags": ["tag3", "tag4"]
+                                                     })
+
+    client.post('/api/recommendations/blogs', json={"blogger": "BLOGGER",
+                                                    "url": "WWW.URLI.COM",
+                                                    "title": "TITLE",
+                                                    "tags": ["tag3", "tag4"]
+                                                    })
+
+    json_data = client.get('/api/recommendations/').get_json()
+
+    book = json_data.get('book')
+    blog = json_data.get('blog')
+    video = json_data.get('video')
+
+    assert len(book) == 1
+    assert len(blog) == 1
+    assert len(video) == 1
+
+    db = returnDB()
+    db.drop_all()
+
+
+def test_no_duplicate_tags_are_created(client):
+    client.post('/api/recommendations/books', json={"title": "TITLE",
+                                                    "author": "AUTHOR",
+                                                    "isbn": 23452345,
+                                                    "tags": ["tag1", "tag2"]
+                                                    })
+
+    client.post('/api/recommendations/videos', json={"url": "WWW.URLI.COM",
+                                                     "title": "TITLE",
+                                                     "tags": ["tag1", "tag3"]
+                                                     })
+
+    client.post('/api/recommendations/blogs', json={"blogger": "BLOGGER",
+                                                    "url": "WWW.URLI.COM",
+                                                    "title": "TITLE",
+                                                    "tags": ["tag1", "tag2"]
+                                                    })
+
+    tags = [tag.serialize for tag in Tag.query.all()]
+
+    assert len(tags) == 3
+
+    db = returnDB()
+    db.drop_all()
+
+
+def test_all_videos_blogs_and_books_with_specific_tag_are_found(client):
+    client.post('/api/recommendations/books', json={"title": "TITLE",
+                                                    "author": "AUTHOR",
+                                                    "isbn": 234523451,
+                                                    "tags": ["tag1", "tag2"]
+                                                    })
+
+    client.post('/api/recommendations/books', json={"title": "TITLE2",
+                                                    "author": "AUTHOR2",
+                                                    "isbn": 234523452,
+                                                    "tags": ["tag2", "tag3"]
+                                                    })
+
+    client.post('/api/recommendations/videos', json={"url": "WWW.URLI.COM",
+                                                     "title": "TITLE",
+                                                     "tags": ["tag3", "tag4"]
+                                                     })
+
+    client.post('/api/recommendations/videos', json={"url": "WWW.URLI2.COM",
+                                                     "title": "TITLE2",
+                                                     "tags": ["tag1", "tag4"]
+                                                     })
+
+    client.post('/api/recommendations/blogs', json={"blogger": "BLOGGER",
+                                                    "url": "WWW.URLI.COM",
+                                                    "title": "TITLE",
+                                                    "tags": ["tag3", "tag4"]
+                                                    })
+
+    client.post('/api/recommendations/blogs', json={"blogger": "BLOGGER2",
+                                                    "url": "WWW.URLI2.COM",
+                                                    "title": "TITLE2",
+                                                    "tags": ["tag1", "tag4"]
+                                                    })
+
+    json_data = client.get('/api/recommendations/tag/tag1').get_json()
+
+    book = json_data.get('book')
+    blog = json_data.get('blog')
+    video = json_data.get('video')
+
+    assert len(book) == 1
+    assert len(blog) == 1
+    assert len(video) == 1
+
+    db = returnDB()
+    db.drop_all()
