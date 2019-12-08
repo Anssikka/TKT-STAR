@@ -16,7 +16,7 @@
     "test": "react-scripts test",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "test-coverage": "npm test -- --coverage --watchAll --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/**/*Page.js --collectCoverageFrom=!src/services/*.js",
+    "test-coverage": "npm test -- --coverage --watchAll=false --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/**/*Page.js --collectCoverageFrom=!src/services/*.js",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000",
