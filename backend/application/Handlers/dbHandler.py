@@ -39,7 +39,7 @@ class DBHandler():
             return jsonify([book.serialize for book in books])
 
     def get_books_by_tag(self, app, tag):
-        return jsonify(self.get_something_by_tag(self, app, tag, Book))
+        return self.get_something_by_tag(self, app, tag, Book)
 
     def get_blogs(self, app):
         with app.app_context():
@@ -47,7 +47,7 @@ class DBHandler():
             return jsonify([blog.serialize for blog in blogs])
 
     def get_blogs_by_tag(self, app, tag):
-        return jsonify(self.get_something_by_tag(self, app, tag, Blog))
+        return self.get_something_by_tag(self, app, tag, Blog)
 
     def get_videos(self, app):
         with app.app_context():
@@ -55,7 +55,7 @@ class DBHandler():
             return jsonify([video.serialize for video in videos])
 
     def get_videos_by_tag(self, app, tag):
-        return jsonify(self.get_something_by_tag(self, app, tag, Video))
+        return self.get_something_by_tag(self, app, tag, Video)
 
     def get_something_by_tag(self, app, tag, something):
         with app.app_context():

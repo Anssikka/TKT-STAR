@@ -18,10 +18,12 @@ dbh = DBHandler
 def getRecommendations():
     return dbh.get_recommendations(dbh, app)
 
+
 @app.route('/api/recommendations/tag/<tag>', methods=['GET'])
 @cross_origin()
 def getRecommendationsByTag(tag):
     return dbh.get_recommendations_by_tag(dbh, app, tag)
+
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
