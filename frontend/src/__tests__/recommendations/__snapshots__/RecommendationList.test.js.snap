@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RecommendationList/> has correct books and videos 1`] = `
+<DocumentFragment>
+  <div
+    class="recommendation-list"
+  >
+    <div
+      class="recommendation"
+    >
+      <h5>
+        Book #1
+      </h5>
+      <button
+        class="book-toggle toggle button null"
+        data-testid="toggle"
+      >
+        Mark as read
+      </button>
+    </div>
+    <div
+      class="recommendation"
+    >
+      <h5>
+        Book #2
+      </h5>
+      <button
+        class="book-toggle toggle button null"
+        data-testid="toggle"
+      >
+        Mark as read
+      </button>
+    </div>
+    <div
+      class="recommendation"
+    >
+      <h5>
+        Video #1
+      </h5>
+    </div>
+    <div
+      class="recommendation"
+    >
+      <h5>
+        Video #2
+      </h5>
+    </div>
+  </div>
+</DocumentFragment>
+`;

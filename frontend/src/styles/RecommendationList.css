@@ -1,0 +1,11 @@
+.recommendation-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.recommendation-list > * {
+  width: 100vw;
+  max-width: 35rem;
+}
