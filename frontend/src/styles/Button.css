@@ -9,4 +9,19 @@
   color: #2c2c2c;
   background: white;
   outline: none;
+  text-decoration: none;
+}
+
+.button-reverse {
+  border: transparent;
+  border-radius: 5px;
+  padding: 0.1rem 0.4rem;
+  cursor: pointer;
+  font-family: 'Lora', serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  background: #2c2c2c;
+  outline: none;
+  text-decoration: none;
 }

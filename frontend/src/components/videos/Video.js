@@ -4,7 +4,7 @@ import '../../styles/Recommendation.css'
 function Video({ title, url, tags }) {
   const showUrl = () =>
     url ? (
-      <a href={url} target="_blank">
+      <a href={url} target="_blank" rel="noopener noreferrer">
         {url}
       </a>
     ) : null
