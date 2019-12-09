@@ -21,7 +21,15 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install --upgrade pip
             pip install -r ../requirements.txt
+
+      - run:
+          name: backend code coverage
+          command: |
+            . venv/bin/activate
+            py.test --cov --cov-report html
+            codecov
 
       - save_cache:
           paths:
@@ -61,7 +69,9 @@ jobs:
           command: npm test
       - run:
           name: code-coverage
-          command: 'npm run test-coverage'
+          command: | 
+            npm run test-coverage
+            ./node_modules/.bin/codecov --token="bc33b794-f5a3-42ea-b17d-2ffca6834c85"
 
   deploy_heroku:
     workers: process.env.CIRCLE_NODE_TOTAL
@@ -110,7 +120,7 @@ jobs:
             git add ../backend/application/built_frontend/
             git commit -m "Automatic build step"
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
-
+          
 workflows:
   version: 2
   build_accept_deploy:

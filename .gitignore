@@ -20,3 +20,7 @@ database.db
 cov.xml
 cov_annotate/
 cov_html/
+htmlcov/
+
+# Node modules
+node_modules/
