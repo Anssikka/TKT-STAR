@@ -76,7 +76,7 @@ jobs:
   end_to_end_testing:
     working_directory: ~/repo/frontend
     machine:
-      - image: circleci/node:10.16.3
+      image: circleci/node:10.16.3
     steps:
       - checkout:
           path: ~/repo
