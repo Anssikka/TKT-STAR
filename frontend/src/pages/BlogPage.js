@@ -11,7 +11,7 @@ function BlogPage() {
 
   useEffect(() => {
     getBlogs()
-  },[])
+  }, [])
 
   const getBlogs = async () => {
     try {
@@ -36,6 +36,7 @@ function BlogPage() {
       <PageTitle title="Blog Recommendations" />
       <PageSubtitle title="Add a Blog" />
       <AddBlogForm handleSubmit={addBlog} />
+      <PageSubtitle title="Saved Blogs" />
       <BlogList blogs={blogs} />
     </main>
   )

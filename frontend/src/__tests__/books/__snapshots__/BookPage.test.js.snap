@@ -56,12 +56,6 @@ exports[`<BookPage /> has correct elements 1`] = `
         />
       </form>
     </div>
-    <button
-      class="button toggle "
-      data-testid="toggle"
-    >
-      Show read books
-    </button>
     <div
       class="recommendation-list"
     >
