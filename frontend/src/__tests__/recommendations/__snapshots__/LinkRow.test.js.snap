@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Book /> has correct links 1`] = `
+<DocumentFragment>
+  <div
+    class="row container"
+  >
+    <a
+      class="button-reverse"
+      href="/recommendations/books"
+    >
+      Add a Book
+    </a>
+    <a
+      class="button-reverse"
+      href="/recommendations/videos"
+    >
+      Add a Video
+    </a>
+  </div>
+</DocumentFragment>
+`;

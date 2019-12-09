@@ -61,6 +61,7 @@ exports[`<VideoPage /> has correct elements 1`] = `
         </h5>
         <a
           href="https://example.com"
+          rel="noopener noreferrer"
           target="_blank"
         >
           https://example.com

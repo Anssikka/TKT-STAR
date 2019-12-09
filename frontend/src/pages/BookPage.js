@@ -5,7 +5,6 @@ import BookList from '../components/books/BookList'
 import AddBookForm from '../components/books/AddBookForm'
 import PageSubtitle from '../components/PageSubtitle'
 import '../styles/RecommendationPage.css'
-import Toggle from '../components/common/Toggle'
 import FilterToggle from '../components/common/FilterToggle'
 
 function BookPage() {

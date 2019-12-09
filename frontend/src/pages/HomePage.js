@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import bookService from '../services/books'
-import videoService from '../services/videos'
+import recommendationService from '../services/recommendations'
 import RecommendationList from '../components/recommendations/RecommendationList'
+import PageTitle from '../components/PageTitle'
+import PageSubtitle from '../components/PageSubtitle'
+import LinkRow from '../components/recommendations/LinkRow'
 
 function HomePage() {
   const [books, setBooks] = useState([])
   const [videos, setVideos] = useState([])
 
   useEffect(() => {
-    bookService
-      .getBooks()
-      .then(savedBooks => setBooks(savedBooks))
-      .catch(error => console.log(error))
-
-    videoService
-      .getVideos()
-      .then(savedVideos => setVideos(savedVideos))
+    recommendationService
+      .getRecommendations()
+      .then(savedRecommendations => {
+        setBooks(savedRecommendations.book)
+        setVideos(savedRecommendations.video)
+      })
       .catch(error => console.log(error))
   }, [])
 
@@ -27,9 +27,9 @@ function HomePage() {
 
   return (
     <main>
-      <Link to="/recommendations/books">Books</Link>
-      <br />
-      <Link to="/recommendations/videos">Videos</Link>
+      <PageTitle title="Recommendations" />
+      <PageSubtitle title="Add a Recommendation" />
+      <LinkRow />
       <RecommendationList books={books} videos={videos} markAsRead={markAsRead} />
     </main>
   )
