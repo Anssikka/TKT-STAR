@@ -1,9 +1,10 @@
 import React from 'react'
 import Book from '../books/Book'
+import Blog from '../blogs/Blog'
 import Video from '../videos/Video'
 import '../../styles/RecommendationList.css'
 
-function RecommendationList({ books, videos, markAsRead }) {
+function RecommendationList({books, videos, blogs, markAsRead }) {
   const mapToBooks = () => {
     if (books) {
       return books.map(book => (
@@ -20,10 +21,18 @@ function RecommendationList({ books, videos, markAsRead }) {
     return []
   }
 
+  const mapToBlogs = () => {
+    if (blogs) {
+      return blogs.map(blog => <Blog key={blog.id} {...blog}/>)
+    }
+    return []
+  }
+
   return (
     <div className="recommendation-list">
       {mapToBooks()}
       {mapToVideos()}
+      {mapToBlogs()}
     </div>
   )
 }

@@ -9,13 +9,15 @@ import LinkRow from '../components/recommendations/LinkRow'
 function HomePage() {
   const [books, setBooks] = useState([])
   const [videos, setVideos] = useState([])
+  const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
     recommendationService
       .getRecommendations()
-      .then(savedRecommendations => {
-        setBooks(savedRecommendations.book)
-        setVideos(savedRecommendations.video)
+      .then(recommendations => {
+        setBooks(recommendations.book)
+        setVideos(recommendations.video)
+        setBlogs(recommendations.blog)
       })
       .catch(error => console.log(error))
   }, [])
@@ -30,7 +32,7 @@ function HomePage() {
       <PageTitle title="Recommendations" />
       <PageSubtitle title="Add a Recommendation" />
       <LinkRow />
-      <RecommendationList books={books} videos={videos} markAsRead={markAsRead} />
+      <RecommendationList books={books} videos={videos} blogs={blogs} markAsRead={markAsRead} />
     </main>
   )
 }
