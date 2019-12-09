@@ -110,6 +110,13 @@ jobs:
             git add ../backend/application/built_frontend/
             git commit -m "Automatic build step"
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master --force
+          
+      - run:
+          name: backend code coverage
+          command: |
+            source venv/bin/activate
+            py.test --cov --cov-report html
+            codecov
 
 workflows:
   version: 2
