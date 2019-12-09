@@ -28,7 +28,7 @@ jobs:
           name: backend code coverage
           command: |
             . venv/bin/activate
-            py.test --ignore=/application/tests --cov --cov-report html
+            py.test --cov --cov-report html
             codecov
 
       - save_cache:
