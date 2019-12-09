@@ -15,6 +15,7 @@ describe('<Book />', () => {
 
   it('can be rendered with title, author, isbn and tags', async () => {
     const props = {
+      id: 123456789,
       title: 'Book Title',
       author: 'Book Author',
       isbn: '1234-4321',
@@ -36,6 +37,7 @@ describe('<Book />', () => {
 
   it('can be marked as read', async () => {
     const props = {
+      id: 123456789,
       title: 'Book Title',
       handleToggle: jest.fn()
     }

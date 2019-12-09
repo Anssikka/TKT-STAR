@@ -62,7 +62,9 @@ exports[`<BookPage /> has correct elements 1`] = `
     >
       Show read books
     </button>
-    <div>
+    <div
+      class="recommendation-list"
+    >
       <h3
         class="page-subtitle"
       >
@@ -93,14 +95,16 @@ exports[`<BookPage /> has correct elements 1`] = `
         >
           Tags:
         </h6>
-        <ul>
-          <li>
-            Tag #1
-          </li>
-          <li>
-            Tag #2
-          </li>
-        </ul>
+        <div>
+          <ul>
+            <li>
+              Tag #1
+            </li>
+            <li>
+              Tag #2
+            </li>
+          </ul>
+        </div>
       </div>
       <div
         class="recommendation"
@@ -114,6 +118,12 @@ exports[`<BookPage /> has correct elements 1`] = `
         >
           Mark as read
         </button>
+        <h6
+          class="recommendation-tag-title"
+        >
+          Tags:
+        </h6>
+        <div />
       </div>
     </div>
   </main>
