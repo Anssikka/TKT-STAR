@@ -234,6 +234,7 @@ def test_all_videos_blogs_and_books_with_specific_tag_are_found(client):
     db = returnDB()
     db.drop_all()
 
+
 def test_correct_number_of_read_and_not_read_books_are_found(client):
     client.post('/api/recommendations/books', json={"title": "TITLE",
                                                     "author": "AUTHOR",
@@ -246,12 +247,12 @@ def test_correct_number_of_read_and_not_read_books_are_found(client):
                                                     "isbn": 234523452,
                                                     "tags": ["tag2", "tag3"]
                                                     })
-                                                
+
     client.post('/api/recommendations/books', json={"title": "TITLE3",
                                                     "author": "AUTHOR3",
                                                     "isbn": 234523453,
                                                     "tags": ["tag2", "tag3"]
-                                                    })    
+                                                    })
 
     client.post('/api/recommendations/books', json={"title": "TITLE4",
                                                     "author": "AUTHOR4",
@@ -288,5 +289,3 @@ def test_correct_number_of_read_and_not_read_books_are_found(client):
 
     db = returnDB()
     db.drop_all()
-
-

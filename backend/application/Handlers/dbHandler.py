@@ -48,7 +48,7 @@ class DBHandler():
 
     def get_books_by_read(self, app, read):
         with app.app_context():
-            books = Book.query.filter(Book.isRead == read).all() 
+            books = Book.query.filter(Book.isRead == read).all()
             return [book.serialize for book in books]
 
     def get_blogs(self, app):
