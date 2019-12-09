@@ -83,9 +83,9 @@ jobs:
       - run: 
           name: install all required software
           command: |
-            apt update
-            apt install python3
-            apt install node
+            sudo apt update -y
+            sudo apt install python3
+            sudo apt install node
 
       - run:
           name: update-npm
