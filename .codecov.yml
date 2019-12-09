@@ -1,0 +1,2 @@
+ignore:
+  - application/tests/test_database.py
