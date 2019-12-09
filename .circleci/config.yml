@@ -77,7 +77,6 @@ jobs:
     working_directory: ~/repo/frontend
     machine:
       - image: circleci/node:10.16.3
-
     steps:
       - checkout:
           path: ~/repo
