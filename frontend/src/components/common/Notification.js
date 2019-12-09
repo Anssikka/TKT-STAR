@@ -6,7 +6,7 @@ function Notification({text}) {
   if (text) {
   return (
     <div>
-      <p class="notification">{text}</p>
+      <p className="notification">{text}</p>
     </div>
   )
   } else { 
