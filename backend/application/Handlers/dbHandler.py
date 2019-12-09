@@ -1,5 +1,6 @@
 from ..Models.models import Book, Video, Recommendation, Tag, TagRecommendation, Blog
 from flask import Flask, jsonify, Response
+from sqlalchemy import func
 
 from application import app
 from application import init_db, returnDB
@@ -60,7 +61,7 @@ class DBHandler():
     def get_something_by_tag(self, app, tag, something):
         with app.app_context():
             something_by_tag = something.query.join(Recommendation, something.recommendation_id == Recommendation.id).join(
-                TagRecommendation, Recommendation.id == TagRecommendation.recommendation_id).join(Tag, TagRecommendation.tag_id == Tag.id).filter(Tag.name == tag)
+                TagRecommendation, Recommendation.id == TagRecommendation.recommendation_id).join(Tag, TagRecommendation.tag_id == Tag.id).filter(func.lower(Tag.name.contains(func.lower(tag))))
 
             return [recommendation.serialize for recommendation in something_by_tag]
 
