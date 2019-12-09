@@ -70,7 +70,7 @@ jobs:
       - run:
           name: code-coverage
           command: | 
-            'npm run test-coverage'
+            npm run test-coverage
             codecov
 
   deploy_heroku:
