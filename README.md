@@ -12,9 +12,6 @@ HY ohjelmistotuotanto 2019 miniprojekti.
 
 [Database schema](https://drive.google.com/file/d/1i-tjaABCwqjmrZZLzulkx27-UuIq5R0D/view?usp=sharing)
 
-[Frontend code coverage](https://app.circleci.com/jobs/github/Anssikka/TKT-STAR/253/parallel-runs/0/steps/0-107)
-
-
 [Heroku link](https://tkt-star.herokuapp.com/recommendations/books)
 
 ### Definition of Done
