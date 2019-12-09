@@ -2,6 +2,8 @@
 
 [![CircleCI](https://circleci.com/gh/Anssikka/TKT-STAR.svg?style=svg)](https://circleci.com/gh/Anssikka/TKT-STAR)
 
+[![codecov](https://codecov.io/gh/Anssikka/TKT-STAR/branch/master/graph/badge.svg)](https://codecov.io/gh/Anssikka/TKT-STAR)
+
 HY ohjelmistotuotanto 2019 miniprojekti.
 
 [Product backlog](https://docs.google.com/spreadsheets/d/1jX4ZMKf7CAhZ0EWJQkujLJgvnexIokoBQU5hum_2hvA/edit?usp=sharing)
