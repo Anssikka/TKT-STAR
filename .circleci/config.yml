@@ -69,7 +69,9 @@ jobs:
           command: npm test
       - run:
           name: code-coverage
-          command: 'npm run test-coverage'
+          command: | 
+            'npm run test-coverage'
+            codecov
 
   deploy_heroku:
     workers: process.env.CIRCLE_NODE_TOTAL
