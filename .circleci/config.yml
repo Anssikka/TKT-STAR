@@ -71,7 +71,7 @@ jobs:
           name: code-coverage
           command: | 
             npm run test-coverage
-            codecov
+            ./node_modules/.bin/codecov --token="bc33b794-f5a3-42ea-b17d-2ffca6834c85"
 
   deploy_heroku:
     workers: process.env.CIRCLE_NODE_TOTAL
