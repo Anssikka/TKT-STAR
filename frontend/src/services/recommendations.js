@@ -6,10 +6,8 @@ const getRecommendations = async () => {
   return response.data
 }
 
-const getRecommendationsByTag = async (tag) => {
-  console.log(tag)
+const getRecommendationsByTag = async tag => {
   const response = await axios.get(`${baseUrl}/tag/${tag}`)
-  console.log(response.data)
   return response.data
 }
 

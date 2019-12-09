@@ -42,10 +42,10 @@ class DBHandler():
         return self.get_something_by_tag(self, app, tag, Book)
 
     def get_not_read_books(self, app):
-        return jsonify(self.get_books_by_read(self, app, True))
+        return jsonify(self.get_books_by_read(self, app, False))
 
     def get_read_books(self, app):
-        return jsonify(self.get_books_by_read(self, app, False))
+        return jsonify(self.get_books_by_read(self, app, True))
 
     def get_books_by_read(self, app, read):
         with app.app_context():

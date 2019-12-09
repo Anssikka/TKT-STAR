@@ -11,6 +11,16 @@ const getBooks = async () => {
   return response.data
 }
 
+const getBooksByReadStatus = async read => {
+  if (read) {
+    const response = await axios.get(`${baseUrl}/read`)
+    return response.data
+  }
+
+  const response = await axios.get(`${baseUrl}/not_read`)
+  return response.data
+}
+
 const updateBook = async book => {
   const response = await axios.put(baseUrl, book)
   return response.data
@@ -21,4 +31,4 @@ const markAsRead = async id => {
   return response.data
 }
 
-export default { createBook, getBooks, updateBook, markAsRead }
+export default { createBook, getBooks, updateBook, markAsRead, getBooksByReadStatus }
