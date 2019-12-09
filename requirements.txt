@@ -23,3 +23,4 @@ wcwidth==0.1.7
 Werkzeug==0.16.0
 zipp==0.6.0
 pytest-cov==3.6
+codecov==2.0.15
