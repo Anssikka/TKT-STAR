@@ -1,2 +1,2 @@
 ignore:
-  - "/backend/application/tests"
+  - "/backend/application/tests/"
