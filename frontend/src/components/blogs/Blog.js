@@ -1,18 +1,21 @@
 import React from 'react'
 import TagList from '../common/TagList'
 import '../../styles/Recommendation.css'
+import '../../styles/Blog.css'
 
-function Video({ id, title, url, tags }) {
+function Blog({ id, url, blogger, title, tags }) {
   const showUrl = () =>
     url ? (
       <a href={url} target="_blank" rel="noopener noreferrer">
         {url}
       </a>
     ) : null
+  const showBlogger = () => (blogger ? <h6 className="blogger">{blogger}</h6> : null)
 
   return (
     <div className="recommendation">
       <h5>{title}</h5>
+      {showBlogger()}
       {showUrl()}
       <h6 className="recommendation-tag-title">Tags:</h6>
       <TagList recommendationId={id} tags={tags} />
@@ -20,4 +23,4 @@ function Video({ id, title, url, tags }) {
   )
 }
 
-export default Video
+export default Blog

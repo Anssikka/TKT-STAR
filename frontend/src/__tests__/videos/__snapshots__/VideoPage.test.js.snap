@@ -47,7 +47,9 @@ exports[`<VideoPage /> has correct elements 1`] = `
         />
       </form>
     </div>
-    <div>
+    <div
+      class="recommendation-list"
+    >
       <h3
         class="page-subtitle"
       >
@@ -71,14 +73,16 @@ exports[`<VideoPage /> has correct elements 1`] = `
         >
           Tags:
         </h6>
-        <ul>
-          <li>
-            Tag #1
-          </li>
-          <li>
-            Tag #2
-          </li>
-        </ul>
+        <div>
+          <ul>
+            <li>
+              Tag #1
+            </li>
+            <li>
+              Tag #2
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </main>

@@ -1,6 +1,7 @@
 import React from 'react'
 import Book from './Book'
 import PageSubtitle from '../PageSubtitle'
+import '../../styles/RecommendationList.css'
 
 function BookList({ books, title, handleToggle }) {
   const showTitle = () => (title ? <PageSubtitle title={title} /> : null)
@@ -13,7 +14,7 @@ function BookList({ books, title, handleToggle }) {
   }
 
   return (
-    <div>
+    <div className="recommendation-list">
       {showTitle()}
       {mapToBooks()}
     </div>

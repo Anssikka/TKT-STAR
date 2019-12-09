@@ -2,8 +2,9 @@ import React from 'react'
 import '../../styles/Book.css'
 import '../../styles/Recommendation.css'
 import Toggle from '../common/Toggle'
+import TagList from '../common/TagList'
 
-function Book({ title, author, isbn, tags, isRead, handleToggle }) {
+function Book({ id, title, author, isbn, tags, isRead, handleToggle }) {
   const showAuthor = () => (author ? <h6 className="book-author">{author}</h6> : null)
   const showIsbn = () => (isbn ? <small>{isbn}</small> : null)
   const showToggle = () => {
@@ -16,22 +17,6 @@ function Book({ title, author, isbn, tags, isRead, handleToggle }) {
       />
     )
   }
-  const showTags = () => {
-    if (Array.isArray(tags) && tags.length) {
-      return (
-        <>
-          <h6 className="recommendation-tag-title">Tags:</h6>
-          <ul>
-            {tags.map(tag => (
-              <li key={`${title}-${tag.id}`}>{tag.title}</li>
-            ))}
-          </ul>
-        </>
-      )
-    } else {
-      return null
-    }
-  }
 
   return (
     <div className="recommendation">
@@ -39,7 +24,8 @@ function Book({ title, author, isbn, tags, isRead, handleToggle }) {
       {showAuthor()}
       {showIsbn()}
       {showToggle()}
-      {showTags()}
+      <h6 className="recommendation-tag-title">Tags:</h6>
+      <TagList recommendationId={id} tags={tags} />
     </div>
   )
 }
