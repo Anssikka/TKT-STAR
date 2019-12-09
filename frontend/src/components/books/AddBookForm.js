@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
 import '../../styles/Form.css'
+import Notification from '../common/Notification'
 
 const AddBookForm = ({ handleSubmit }) => {
   const [author, setAuthor] = useState('')
   const [isbn, setIsbn] = useState('')
   const [tags, setTags] = useState('')
   const [title, setTitle] = useState('')
+  
+  const [notificationVisibility, setNotificationVisibility] = useState('')
 
   const onSubmit = async event => {
     event.preventDefault()
     const book = { title, author, isbn }
     const error = await handleSubmit(book)
     if (!error) {
+      setNotificationVisibility('Book added succesfully')
+      setTimeout(() => setNotificationVisibility(''), 2000)  
       resetForm()
     } else {
       // Handle error
@@ -25,6 +30,7 @@ const AddBookForm = ({ handleSubmit }) => {
   }
 
   return (
+    <>
     <div className="book-form-wrapper">
       <form className="book-form" onSubmit={onSubmit}>
         <label>Title:</label>
@@ -57,6 +63,7 @@ const AddBookForm = ({ handleSubmit }) => {
         <input className="form-submit" type="submit" value="Submit" data-testid="add-book-submit" />
       </form>
     </div>
+   <Notification text={notificationVisibility} /></>
   )
 }
 export default AddBookForm
