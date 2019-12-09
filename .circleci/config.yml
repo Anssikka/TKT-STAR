@@ -189,7 +189,7 @@ workflows:
       - end_to_end_testing:
           requires:
             - build_backend
-            - build_fronten 
+            - build_frontend 
       - deploy_heroku:
           requires:
             - end_to_end_testing
