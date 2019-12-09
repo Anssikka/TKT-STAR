@@ -71,7 +71,7 @@ jobs:
           name: code-coverage
           command: | 
             npm run test-coverage
-            ./node_modules/.bin/codecov --token="bc33b794-f5a3-42ea-b17d-2ffca6834c85"
+            ./node_modules/.bin/codecov --token=$CODECOV_TOKEN
 
   end_to_end_testing:
     working_directory: ~/repo/frontend
