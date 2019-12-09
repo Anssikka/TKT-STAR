@@ -9,7 +9,7 @@ form > label {
   color: #2c2c2c;
 }
 
-form > input {
+form input {
   margin-bottom: 1.5rem;
   border: 2px solid #2c2c2c;
   border-radius: 5px;
