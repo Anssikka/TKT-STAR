@@ -71,7 +71,8 @@ class DBHandler():
     def get_something_by_tag(self, app, tag, something):
         with app.app_context():
             something_by_tag = something.query.join(Recommendation, something.recommendation_id == Recommendation.id).join(
-                TagRecommendation, Recommendation.id == TagRecommendation.recommendation_id).join(Tag, TagRecommendation.tag_id == Tag.id).filter(func.lower(Tag.name.contains(func.lower(tag))))
+                TagRecommendation, Recommendation.id == TagRecommendation.recommendation_id).join(Tag, TagRecommendation.tag_id
+                    == Tag.id).filter(func.lower(Tag.name.contains(func.lower(tag))))
 
             return [recommendation.serialize for recommendation in something_by_tag]
 
