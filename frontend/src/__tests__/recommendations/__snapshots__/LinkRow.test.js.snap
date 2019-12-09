@@ -17,6 +17,12 @@ exports[`<Book /> has correct links 1`] = `
     >
       Add a Video
     </a>
+    <a
+      class="button-reverse"
+      href="/recommendations/blogs"
+    >
+      Add A Blog
+    </a>
   </div>
 </DocumentFragment>
 `;

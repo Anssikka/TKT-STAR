@@ -11,7 +11,7 @@ function BlogPage() {
 
   useEffect(() => {
     getBlogs()
-  })
+  },[])
 
   const getBlogs = async () => {
     try {

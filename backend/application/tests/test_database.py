@@ -233,3 +233,53 @@ def test_all_videos_blogs_and_books_with_specific_tag_are_found(client):
 
     db = returnDB()
     db.drop_all()
+
+
+def test_correct_number_of_read_and_not_read_books_are_found(client):
+    client.post('/api/recommendations/books', json={"title": "TITLE",
+                                                    "author": "AUTHOR",
+                                                    "isbn": 234523451,
+                                                    "tags": ["tag1", "tag2"]
+                                                    })
+
+    client.post('/api/recommendations/books', json={"title": "TITLE2",
+                                                    "author": "AUTHOR2",
+                                                    "isbn": 234523452,
+                                                    "tags": ["tag2", "tag3"]
+                                                    })
+
+    client.post('/api/recommendations/books', json={"title": "TITLE3",
+                                                    "author": "AUTHOR3",
+                                                    "isbn": 234523453,
+                                                    "tags": ["tag2", "tag3"]
+                                                    })
+
+    client.post('/api/recommendations/books', json={"title": "TITLE4",
+                                                    "author": "AUTHOR4",
+                                                    "isbn": 234523454,
+                                                    "tags": ["tag2", "tag3"]
+                                                    })
+
+    client.post('/api/recommendations/books', json={"title": "TITLE5",
+                                                    "author": "AUTHOR5",
+                                                    "isbn": 234523455,
+                                                    "tags": ["tag2", "tag3"]
+                                                    })
+
+    client.post('/api/recommendations/books', json={"title": "TITLE6",
+                                                    "author": "AUTHOR6",
+                                                    "isbn": 234523456,
+                                                    "tags": ["tag2", "tag3"]
+                                                    })
+
+    for id in range(1, 4):
+        client.post('/api/recommendations/books/' + str(id))
+
+    read = client.get('/api/recommendations/books/read').get_json()
+    not_read = client.get('/api/recommendations/books/not_read').get_json()
+
+    assert len(read) == 3
+    assert len(not_read) == 3
+
+    db = returnDB()
+    db.drop_all()

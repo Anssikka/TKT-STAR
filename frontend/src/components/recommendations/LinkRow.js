@@ -12,6 +12,9 @@ function LinkRow() {
       <Link className="button-reverse" to="/recommendations/videos">
         Add a Video
       </Link>
+      <Link className="button-reverse" to='/recommendations/blogs'>
+        Add A Blog
+        </Link>
     </Row>
   )
 }
