@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 import '../../styles/Form.css'
 
+import Notification from '../common/Notification'
+
 const AddBookForm = ({ handleSubmit }) => {
   const [title, setTitle] = useState('')
   const [blogger, setBlogger] = useState('')
   const [url, setUrl] = useState('')
   const [tags, setTags] = useState('')
 
+  const [notificationVisibility, setNotificationVisibility] = useState('')
+
   const onSubmit = async event => {
     event.preventDefault()
     const blog = { title, blogger, url }
     const error = await handleSubmit(blog)
     if (!error) {
+      setNotificationVisibility('Blog added succesfully')
+      setTimeout(() => setNotificationVisibility(''), 2000)  
       resetForm()
     } else {
       // Handle error
@@ -26,6 +32,7 @@ const AddBookForm = ({ handleSubmit }) => {
   }
 
   return (
+    <>
     <div className="book-form-wrapper">
       <form className="book-form" onSubmit={onSubmit}>
         <label>Title:</label>
@@ -58,6 +65,8 @@ const AddBookForm = ({ handleSubmit }) => {
         <input className="form-submit" type="submit" value="Submit" data-testid="add-blog-submit" />
       </form>
     </div>
+    <Notification text={notificationVisibility} />
+    </>
   )
 }
 export default AddBookForm

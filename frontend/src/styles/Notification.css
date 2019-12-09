@@ -1,0 +1,9 @@
+.notification {
+  font-size: 1.4rem;
+  background: #2a752e;
+  color: white;
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: 0.1rem 0.6rem;
+  font-family: 'Rasa', serif;
+}
