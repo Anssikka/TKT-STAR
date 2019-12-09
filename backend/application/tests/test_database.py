@@ -278,12 +278,6 @@ def test_correct_number_of_read_and_not_read_books_are_found(client):
     read = client.get('/api/recommendations/books/read').get_json()
     not_read = client.get('/api/recommendations/books/not_read').get_json()
 
-    print("************************************************************************************************************")
-    print(read)
-    print(not_read)
-    print(len(read))
-    print(len(not_read))
-
     assert len(read) == 3
     assert len(not_read) == 3
 
