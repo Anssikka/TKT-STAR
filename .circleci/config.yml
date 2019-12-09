@@ -120,17 +120,17 @@ jobs:
             - v1-dependencies-
 
       - run:
-        name: install dependencies
-        command: |
-          python3 -m venv venv
-          . venv/bin/activate
-          pip install -r ../requirements.txt
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r ../requirements.txt
 
-      -run:
-        name: run flask application
-        command: |
-          python3 ../backend/run.py &
-          npm cypress run    
+      - run:
+          name: run flask application
+          command: |
+            python3 ../backend/run.py &
+            npm cypress run    
 
   deploy_heroku:
     workers: process.env.CIRCLE_NODE_TOTAL
