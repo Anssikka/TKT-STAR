@@ -40,6 +40,18 @@ def getBooks():
     return dbh.get_books(dbh, app)
 
 
+@app.route('/api/recommendations/books/read', methods=['GET'])
+@cross_origin()
+def getReadBooks():
+    return dbh.get_read_books(dbh, app)
+
+
+@app.route('/api/recommendations/books/not_read', methods=['GET'])
+@cross_origin()
+def getNotReadBooks():
+    return dbh.get_not_read_books(dbh, app)
+
+
 @app.route('/api/recommendations/books/tag/<tag>', methods=['GET'])
 @cross_origin()
 def getBooksByTag(tag):
@@ -50,6 +62,8 @@ def getBooksByTag(tag):
 @cross_origin()
 def postBook():
     json = request.json
+    print("**************************^^^^^^^^^^^^^^^*************************")
+    print(json)
     return dbh.post_book(dbh, db, json)
 
 

@@ -21,18 +21,17 @@ class DBHandler():
             return jsonify(dict)
 
     def get_recommendations_by_tag(self, app, tag):
-        with app.app_context():
-            books = self.get_books_by_tag(self, app, tag)
-            videos = self.get_videos_by_tag(self, app, tag)
-            blogs = self.get_blogs_by_tag(self, app, tag)
+        books = self.get_books_by_tag(self, app, tag)
+        videos = self.get_videos_by_tag(self, app, tag)
+        blogs = self.get_blogs_by_tag(self, app, tag)
 
-            dict = {
-                "book": books,
-                "video": videos,
-                "blog": blogs
-            }
+        dict = {
+            "book": books,
+            "video": videos,
+            "blog": blogs
+        }
 
-            return jsonify(dict)
+        return jsonify(dict)
 
     def get_books(self, app):
         with app.app_context():
@@ -41,6 +40,17 @@ class DBHandler():
 
     def get_books_by_tag(self, app, tag):
         return self.get_something_by_tag(self, app, tag, Book)
+
+    def get_not_read_books(self, app):
+        return jsonify(self.get_books_by_read(self, app, True))
+
+    def get_read_books(self, app):
+        return jsonify(self.get_books_by_read(self, app, False))
+
+    def get_books_by_read(self, app, read):
+        with app.app_context():
+            books = Book.query.filter(Book.isRead == read).all()
+            return [book.serialize for book in books]
 
     def get_blogs(self, app):
         with app.app_context():
@@ -66,104 +76,115 @@ class DBHandler():
             return [recommendation.serialize for recommendation in something_by_tag]
 
     def post_video(self, db, json):
-        url = json.get('url')
-        title = json.get('title')
+        with app.app_context():
+            url = json.get('url')
+            title = json.get('title')
 
-        rec = Recommendation()
-        video = Video(url=url, title=title, recommendation=rec)
+            rec = Recommendation()
+            video = Video(url=url, title=title, recommendation=rec)
 
-        db.session.add(rec)
-        db.session.add(video)
-        db.session.commit()
+            db.session.add(rec)
+            db.session.add(video)
+            db.session.commit()
 
-        db.session.refresh(rec)
+            db.session.refresh(rec)
 
-        if json.get('tags'):
-            for tag in json.get('tags'):
-                tag_in_database = Tag.query.filter(Tag.name == tag).first()
-                if tag_in_database == None:
-                    self.add_tag(self, rec, db, tag)
-                else:
-                    self.add_tag_recommendation(self, rec, db, tag_in_database)
+            if json.get('tags'):
+                for tag in json.get('tags'):
+                    tag_in_database = Tag.query.filter(Tag.name == tag).first()
+                    if tag_in_database == None:
+                        self.add_tag(self, rec, db, tag)
+                    else:
+                        self.add_tag_recommendation(
+                            self, rec, db, tag_in_database)
 
-        return jsonify(video.serialize)
+            return jsonify(video.serialize)
 
     def post_book(self, db, json):
-        title = json.get('title')
-        author = json.get('author')
-        isbn = json.get('isbn')
-        isRead = 0
+        with app.app_context():
+            title = json.get('title')
+            author = json.get('author')
+            isbn = json.get('isbn')
+            isRead = 0
 
-        rec = Recommendation()
-        book = Book(title=title, author=author, isbn=isbn,
-                    isRead=isRead, recommendation=rec)
+            rec = Recommendation()
+            book = Book(title=title, author=author, isbn=isbn,
+                        isRead=isRead, recommendation=rec)
 
-        db.session.add(rec)
-        db.session.add(book)
-        db.session.commit()
+            db.session.add(rec)
+            db.session.add(book)
+            db.session.commit()
 
-        db.session.refresh(rec)
+            db.session.refresh(rec)
 
-        if json.get('tags'):
-            for tag in json.get('tags'):
-                tag_in_database = Tag.query.filter(Tag.name == tag).first()
-                if tag_in_database == None:
-                    self.add_tag(self, rec, db, tag)
-                else:
-                    self.add_tag_recommendation(self, rec, db, tag_in_database)
+            if json.get('tags'):
+                for tag in json.get('tags'):
+                    tag_in_database = Tag.query.filter(Tag.name == tag).first()
+                    if tag_in_database == None:
+                        self.add_tag(self, rec, db, tag)
+                    else:
+                        self.add_tag_recommendation(
+                            self, rec, db, tag_in_database)
 
-        return jsonify(book.serialize)
+            return jsonify(book.serialize)
 
     def post_blog(self, db, json):
-        blogger = json.get('blogger')
-        url = json.get('url')
-        title = json.get('title')
+        with app.app_context():
+            blogger = json.get('blogger')
+            url = json.get('url')
+            title = json.get('title')
 
-        rec = Recommendation()
-        blog = Blog(url=url, title=title, blogger=blogger, recommendation=rec)
+            rec = Recommendation()
+            blog = Blog(url=url, title=title,
+                        blogger=blogger, recommendation=rec)
 
-        db.session.add(rec)
-        db.session.add(blog)
-        db.session.commit()
+            db.session.add(rec)
+            db.session.add(blog)
+            db.session.commit()
 
-        db.session.refresh(rec)
+            db.session.refresh(rec)
 
-        if json.get('tags'):
-            for tag in json.get('tags'):
-                tag_in_database = Tag.query.filter(Tag.name == tag).first()
-                if tag_in_database == None:
-                    self.add_tag(self, rec, db, tag)
-                else:
-                    self.add_tag_recommendation(self, rec, db, tag_in_database)
+            if json.get('tags'):
+                for tag in json.get('tags'):
+                    tag_in_database = Tag.query.filter(Tag.name == tag).first()
+                    if tag_in_database == None:
+                        self.add_tag(self, rec, db, tag)
+                    else:
+                        self.add_tag_recommendation(
+                            self, rec, db, tag_in_database)
 
-        return jsonify(blog.serialize)
+            return jsonify(blog.serialize)
 
     def update_book(self, db, book_id):
-        book = db.session.query(Book).filter(Book.id == book_id).first()
+        with app.app_context():
+            book = db.session.query(Book).filter(Book.id == book_id).first()
 
-        if book.isRead == False:
-            book.isRead = True
-        elif book.isRead == True:
-            book.isRead = False
+            if book.isRead == False:
+                book.isRead = True
+            elif book.isRead == True:
+                book.isRead = False
 
-        db.session.commit()
-        book = Book.query.get(book_id)
+            db.session.commit()
+            book = Book.query.get(book_id)
 
-        return jsonify(book.serialize)
+            return jsonify(book.serialize)
 
     def get_book(self, db, book_id):
-        book = db.session.query(Book).filter(Book.id == book_id).first()
-        if book == None:
-            return Response("", status=404)
+        with app.app_context():
+            book = db.session.query(Book).filter(Book.id == book_id).first()
+            if book == None:
+                return Response("", status=404)
 
-        return jsonify(book.serialize)
+            return jsonify(book.serialize)
 
     def get_video(self, db, video_id):
-        video = db.session.query(Video).filter(Video.id == video_id).first()
-        if video == None:
-            return Response("", status=404)
+        with app.app_context():
+            video = db.session.query(Video).filter(
+                Video.id == video_id).first()
+            if video == None:
+                return Response("", status=404)
 
-        return jsonify(video.serialize)
+            return jsonify(video.serialize)
 
     def add_tag(self, rec, db, tag):
         tagObject = Tag(name=tag)
@@ -184,7 +205,8 @@ class DBHandler():
         db.session.commit()
 
     def reset_database(self):
-        db2 = returnDB()
-        db2.drop_all()
-        db2.create_all()
-        db2.session.commit()
+        with app.app_context():
+            db2 = returnDB()
+            db2.drop_all()
+            db2.create_all()
+            db2.session.commit()
