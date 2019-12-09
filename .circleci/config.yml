@@ -73,6 +73,66 @@ jobs:
             npm run test-coverage
             ./node_modules/.bin/codecov --token="bc33b794-f5a3-42ea-b17d-2ffca6834c85"
 
+  end_to_end_testing:
+    working_directory: ~/repo/frontend
+    machine:
+      - image: circleci/node:10.16.3
+
+    steps:
+      - checkout:
+          path: ~/repo
+      - run: 
+          name: install all required software
+          command: |
+            apt update
+            apt install python3
+            apt install node
+
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: build-npm
+          command: |
+            unset CI
+            npm run build
+
+      - run:
+          name: move build to backend
+          command: |
+            set -o nounset
+            set -o errexit
+            set -o xtrace
+            cp -r build/ ../backend/application/
+            mv ../backend/application/build/ ../backend/application/built_frontend/
+      
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "../requirements.txt" }}
+            - v1-dependencies-
+
+      - run:
+        name: install dependencies
+        command: |
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install -r ../requirements.txt
+
+      -run:
+        name: run flask application
+        command: |
+          python3 ../backend/run.py &
+          npm cypress run    
+
   deploy_heroku:
     workers: process.env.CIRCLE_NODE_TOTAL
     working_directory: ~/repo/frontend
@@ -127,10 +187,13 @@ workflows:
     jobs:
       - build_backend
       - build_frontend
-      - deploy_heroku:
+      - end_to_end_testing:
           requires:
             - build_backend
-            - build_frontend
+            - build_fronten 
+      - deploy_heroku:
+          requires:
+            - end_to_end_testing
           filters:
             branches:
               only: master
