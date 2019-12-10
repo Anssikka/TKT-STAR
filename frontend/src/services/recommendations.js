@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/recommendations/'
+const baseUrl = '/api/recommendations'
 
 const getRecommendations = async () => {
   const response = await axios.get(baseUrl)
