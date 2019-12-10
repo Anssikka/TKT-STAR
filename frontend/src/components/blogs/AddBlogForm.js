@@ -13,7 +13,8 @@ const AddBookForm = ({ handleSubmit }) => {
 
   const onSubmit = async event => {
     event.preventDefault()
-    const blog = { title, blogger, url }
+    const tagsArray = tags.split(',').map(m => m.trim())
+    const blog = { title, blogger, url, tags : tagsArray }
     const error = await handleSubmit(blog)
     if (!error) {
       setNotificationVisibility('Blog added succesfully')
@@ -60,6 +61,15 @@ const AddBookForm = ({ handleSubmit }) => {
           value={url}
           onChange={({ target }) => setUrl(target.value)}
           data-testid="add-blog-url"
+        />
+
+        <label>Tags:</label>
+        <input
+          type="text"
+          placeholder="Type your tags, comma separated"
+          value={tags}
+          onChange={({ target }) => setTags(target.value)}
+          data-testid="add-blog-tag"
         />
 
         <input className="form-submit" type="submit" value="Submit" data-testid="add-blog-submit" />

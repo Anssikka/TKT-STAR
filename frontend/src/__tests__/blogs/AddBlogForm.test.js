@@ -7,17 +7,27 @@ afterEach(cleanup)
 
 describe('<AddBookForm />', () => {
   it('sends correct data when submitted', async () => {
-    const blog = { title: 'Testing Blog', blogger: 'Blogger', url: 'https://example.com' }
+    const blog = {
+      title: 'Testing Blog',
+      blogger: 'Blogger',
+      url: 'https://example.com',
+      tags: ['testing', '#1testing']
+    }
+    const tagString = 'testing, #1testing'
     const handleSubmit = jest.fn().mockResolvedValue({ id: 123456789, ...blog })
-    const { component, titleInput, bloggerInput, urlInput, submit } = await setup(handleSubmit)
+    const { component, titleInput, bloggerInput, urlInput, tagInput, submit } = await setup(
+      handleSubmit
+    )
 
     fireEvent.change(titleInput, { target: { value: blog.title } })
     fireEvent.change(bloggerInput, { target: { value: blog.blogger } })
     fireEvent.change(urlInput, { target: { value: blog.url } })
+    fireEvent.change(tagInput, { target: { value: tagString } })
 
     await waitForElement(() => component.getByDisplayValue(blog.title))
     await waitForElement(() => component.getByDisplayValue(blog.blogger))
     await waitForElement(() => component.getByDisplayValue(blog.url))
+    await waitForElement(() => component.getByDisplayValue(tagString))
 
     fireEvent.click(submit)
 
@@ -31,6 +41,7 @@ const setup = async handleSubmit => {
   const titleInput = await component.findByTestId('add-blog-title')
   const bloggerInput = await component.findByTestId('add-blogger')
   const urlInput = await component.findByTestId('add-blog-url')
+  const tagInput = await component.findByTestId('add-blog-tag')
   const submit = await component.findByTestId('add-blog-submit')
 
   return {
@@ -38,6 +49,7 @@ const setup = async handleSubmit => {
     titleInput,
     bloggerInput,
     urlInput,
+    tagInput,
     submit
   }
 }

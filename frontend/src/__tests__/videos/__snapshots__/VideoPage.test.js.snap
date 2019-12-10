@@ -39,6 +39,15 @@ exports[`<VideoPage /> has correct elements 1`] = `
           type="text"
           value=""
         />
+        <label>
+          Tags:
+        </label>
+        <input
+          data-testid="add-video-tag"
+          placeholder="Type your tags, comma separated"
+          type="text"
+          value=""
+        />
         <input
           class="form-submit"
           data-testid="add-video-submit"

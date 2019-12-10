@@ -12,7 +12,8 @@ const AddVideoForm = ({ handleSubmit }) => {
 
     const onSubmit = async event => {
         event.preventDefault()
-        const video = { title, url }
+        const tagsArray = tags.split(',').map(m => m.trim())
+        const video = { title, url, tags : tagsArray }
         const error = await handleSubmit(video)
         if (!error) {
             setNotificationVisibility('Video added succesfully')
@@ -26,6 +27,7 @@ const AddVideoForm = ({ handleSubmit }) => {
     const resetForm = () => {
         setTitle('')
         setUrl('')
+        setTags('')
     }
 
     return (
@@ -48,6 +50,15 @@ const AddVideoForm = ({ handleSubmit }) => {
                     value={url}
                     onChange={({ target }) => setUrl(target.value)}
                     data-testid="add-video-url"
+                />
+
+                <label>Tags:</label>
+                <input
+                    type="text"
+                    placeholder="Type your tags, comma separated"
+                    value={tags}
+                    onChange={({ target }) => setTags(target.value)}
+                    data-testid="add-video-tag"
                 />
 
                 <input className="form-submit" type="submit" value="Submit" data-testid="add-video-submit" />
