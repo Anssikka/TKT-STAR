@@ -13,7 +13,7 @@ describe('<AddBookForm />', () => {
       url: 'https://example.com',
       tags: ['testing', '#1testing']
     }
-    const tagString = '   testing,  #1testing '
+    const tagString = 'testing, #1testing'
     const handleSubmit = jest.fn().mockResolvedValue({ id: 123456789, ...blog })
     const { component, titleInput, bloggerInput, urlInput, tagInput, submit } = await setup(
       handleSubmit

@@ -8,7 +8,7 @@ afterEach(cleanup)
 describe('<AddVideoForm />', () => {
   it('sends correct data when submitted', async () => {
     const video = { title: 'test title', url: 'google.fi', tags: ['testing', '#1testing'] }
-    const tagString = '   testing,  #1testing '
+    const tagString = 'testing, #1testing'
 
     const handleSubmit = jest.fn().mockResolvedValue(video)
     const { component, titleInput, urlInput, tagInput, submit } = await setup(handleSubmit)

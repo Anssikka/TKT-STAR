@@ -12,7 +12,8 @@ const AddBookForm = ({ handleSubmit }) => {
 
   const onSubmit = async event => {
     event.preventDefault()
-    const book = { title, author, isbn }
+    const tagsArray = tags.split(',').map(m => m.trim())
+    const book = { title, author, isbn, tags : tagsArray }
     const error = await handleSubmit(book)
     if (!error) {
       setNotificationVisibility('Book added succesfully')
@@ -27,6 +28,7 @@ const AddBookForm = ({ handleSubmit }) => {
     setAuthor('')
     setTitle('')
     setIsbn('')
+    setTags('')
   }
 
   return (
@@ -58,6 +60,15 @@ const AddBookForm = ({ handleSubmit }) => {
           value={isbn}
           onChange={({ target }) => setIsbn(target.value)}
           data-testid="add-book-isbn"
+        />
+
+        <label>Tags:</label>
+        <input
+          type="text"
+          placeholder="Type your tags, comma separated"
+          value={tags}
+          onChange={({ target }) => setTags(target.value)}
+          data-testid="add-book-tag"
         />
 
         <input className="form-submit" type="submit" value="Submit" data-testid="add-book-submit" />

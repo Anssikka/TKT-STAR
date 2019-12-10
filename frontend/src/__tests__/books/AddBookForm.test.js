@@ -13,7 +13,7 @@ describe('<AddBookForm />', () => {
       isbn: '1234-4321',
       tags: ['testing', '#1testing']
     }
-    const tagString = '   testing,  #1testing '
+    const tagString = 'testing, #1testing'
     const handleSubmit = jest.fn().mockResolvedValue(book)
     const { component, authorInput, titleInput, isbnInput, tagInput, submit } = await setup(
       handleSubmit
