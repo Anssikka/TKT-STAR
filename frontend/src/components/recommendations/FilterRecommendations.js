@@ -14,9 +14,9 @@ function FilterRecommendations({ filterType, filterOnChange, filterTagFieldHandl
           <input type="radio" name="RButton" id="4" value="BookIsRead" checked={filterType === "BookIsRead"} onChange={filterOnChange}></input>Show Read Books
           </label>
             <label>
-          <input type="radio" name="RButton" id="1" value="Tag" checked={filterType === "Tag"} onChange={filterOnChange}></input>Tag
+          <input type="radio" name="RButton" id="1" data-testid="tag-to-find-button" value="Tag" checked={filterType === "Tag"} onChange={filterOnChange}></input>Tag
           </label>
-        {filterType === "Tag" ? <input type="text" onChange={filterTagFieldHandler} /> : null}
+        {filterType === "Tag" ? <input type="text" data-testid="tag-to-find" onChange={filterTagFieldHandler} /> : null}
         </Row>
       </form>
   )
